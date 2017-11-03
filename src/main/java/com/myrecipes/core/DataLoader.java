@@ -23,7 +23,9 @@ public class DataLoader implements ApplicationRunner
     @Override
     public void run(ApplicationArguments args) throws Exception
     {
-        Recipe recipe = new Recipe("Cookies", "http://mycookies.jpeg", Category.DESSERT, 15, 30);
-        recipeRepository.save(recipe);
+        Recipe recipe1 = new Recipe("Cookies", "http://mycookies.jpeg", Category.DESSERT, 15, 30);
+        Recipe recipe2 = new Recipe("Chocolate Cake", "http://mychocolatecake.jpeg", Category.DESSERT, 20, 60);
+        recipeRepository.save(recipe1);
+        recipeRepository.save(recipe2);
     }
 }
