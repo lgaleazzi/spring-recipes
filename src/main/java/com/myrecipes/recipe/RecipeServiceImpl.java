@@ -4,6 +4,8 @@ import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -16,5 +18,11 @@ public class RecipeServiceImpl implements RecipeService
     public List<Recipe> findAll()
     {
         return Lists.newArrayList(recipeRepository.findAll());
+    }
+
+    @Override
+    public List<Category> allCategories()
+    {
+        return Arrays.asList(Category.values());
     }
 }
