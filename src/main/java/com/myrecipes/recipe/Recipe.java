@@ -35,11 +35,24 @@ public class Recipe
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Step> steps;
 
+    public Recipe(String name, String image, Category category, int prepTime, int cookTime)
+    {
+        this.name = name;
+        this.image = image;
+        this.category = category;
+        this.prepTime = prepTime;
+        this.cookTime = cookTime;
+        ingredients = new ArrayList<>();
+        steps = new ArrayList<>();
+    }
+
     public Recipe()
     {
         ingredients = new ArrayList<>();
         steps = new ArrayList<>();
     }
+
+
 
     public Long getId()
     {
