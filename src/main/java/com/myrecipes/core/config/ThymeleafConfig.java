@@ -25,9 +25,6 @@ public class ThymeleafConfig implements ApplicationContextAware
 
     private ApplicationContext applicationContext;
 
-    @Autowired
-    private ThymeleafProperties properties;
-
     public void setApplicationContext(ApplicationContext applicationContext)
     {
         this.applicationContext = applicationContext;
@@ -62,6 +59,4 @@ public class ThymeleafConfig implements ApplicationContextAware
         resolver.setCacheable(false);
         return resolver;
     }
-
-
 }
