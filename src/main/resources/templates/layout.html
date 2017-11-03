@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>Title</title>
+
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/unsemantic-grid-responsive.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<nav th:fragment="nav">
+
+</nav>
+
+<div th:fragment="flash" th:if="${flash != null}">
+    <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
+</div>
+
+
+
+</html>
