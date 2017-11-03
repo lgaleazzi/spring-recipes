@@ -13,8 +13,17 @@
 </head>
 
 <nav th:fragment="nav">
-
 </nav>
+
+<div th:fragment="logo" class="grid-100">
+    <a href="index.html">
+        <h1>
+            <img src="images/chefbot.svg" height="60px">
+            <br>
+            My Recipes
+        </h1>
+    </a>
+</div>
 
 <div th:fragment="flash" th:if="${flash != null}">
     <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
