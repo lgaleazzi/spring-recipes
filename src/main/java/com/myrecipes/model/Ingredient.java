@@ -86,4 +86,46 @@ public class Ingredient
     {
         this.quantity = quantity;
     }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Ingredient that = (Ingredient)o;
+
+        if (id != null ? !id.equals(that.id) : that.id != null)
+            return false;
+        if (item != null ? !item.equals(that.item) : that.item != null)
+            return false;
+        if (condition != null ? !condition.equals(that.condition) : that.condition != null)
+            return false;
+        return quantity != null ? quantity.equals(that.quantity) : that.quantity == null;
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (item != null ? item.hashCode() : 0);
+        result = 31 * result + (condition != null ? condition.hashCode() : 0);
+        result = 31 * result + (quantity != null ? quantity.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Ingredient{" +
+                "id=" + id +
+                ", item='" + item + '\'' +
+                ", condition='" + condition + '\'' +
+                ", quantity='" + quantity + '\'' +
+                //", recipe=" + recipe +
+                '}';
+    }
 }

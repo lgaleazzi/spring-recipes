@@ -42,9 +42,9 @@ public class DataLoader implements ApplicationRunner
         );
 
         List<Step> steps = Arrays.asList(
-                new Step("First do this"),
-                new Step("And then do that"),
-                new Step("Finally do this")
+                new Step("First do this", recipes.get(0)),
+                new Step("And then do that", recipes.get(0)),
+                new Step("Finally do this", recipes.get(0))
         );
 
         List<Ingredient> ingredients = Arrays.asList(
@@ -55,9 +55,10 @@ public class DataLoader implements ApplicationRunner
         recipes.get(0).getSteps().addAll(steps);
         recipes.get(0).getIngredients().addAll(ingredients);
 
+        //System.out.println(recipes.get(0));
         recipes.forEach(recipeRepository::save);
-        ingredients.forEach(ingredientRepository::save);
-        steps.forEach(stepRepository::save);
-
+        //System.out.println("Recipe: " + recipeRepository.findOne(1L));
+        //System.out.println("Ingredients: " + ingredientRepository.findAll());
+        //System.out.println("Steps: " + stepRepository.findAll());
     }
 }

@@ -1,6 +1,7 @@
 package com.myrecipes.repository;
 
 import com.myrecipes.model.Recipe;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,4 +11,7 @@ import java.util.List;
 public interface RecipeRepository extends CrudRepository<Recipe, Long>
 {
     List<Recipe> findAll();
+
+    @EntityGraph(value = "Recipe.detail", type = EntityGraph.EntityGraphType.LOAD)
+    Recipe findOne(Long id);
 }

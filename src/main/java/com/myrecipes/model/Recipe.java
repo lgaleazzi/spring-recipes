@@ -5,9 +5,15 @@ import org.hibernate.validator.constraints.NotBlank;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+//NamedEntityGraph allows fetching steps and ingredients in repository
+@NamedEntityGraph(name = "Recipe.detail", attributeNodes = {
+        @NamedAttributeNode("steps"),
+        @NamedAttributeNode("ingredients")
+})
 public class Recipe
 {
     @Id
@@ -29,11 +35,12 @@ public class Recipe
 
     private int cookTime;
 
+    //Using Set so Hibernate can load both collections
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<Ingredient> ingredients;
+    private Set<Ingredient> ingredients;
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<Step> steps;
+    private Set<Step> steps;
 
     public Recipe(String name, String image, String description, Category category, int prepTime, int cookTime)
     {
@@ -43,8 +50,8 @@ public class Recipe
         this.category = category;
         this.prepTime = prepTime;
         this.cookTime = cookTime;
-        ingredients = new ArrayList<>();
-        steps = new ArrayList<>();
+        ingredients = new HashSet<>();
+        steps = new HashSet<>();
     }
 
     public Recipe()
@@ -123,23 +130,63 @@ public class Recipe
         this.cookTime = cookTime;
     }
 
-    public List<Ingredient> getIngredients()
+    public Set<Ingredient> getIngredients()
     {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients)
+    public void setIngredients(Set<Ingredient> ingredients)
     {
         this.ingredients = ingredients;
     }
 
-    public List<Step> getSteps()
+    public Set<Step> getSteps()
     {
         return steps;
     }
 
-    public void setSteps(List<Step> steps)
+    public void setSteps(Set<Step> steps)
     {
         this.steps = steps;
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Recipe recipe = (Recipe)o;
+
+        if (id != null ? !id.equals(recipe.id) : recipe.id != null)
+            return false;
+        return name != null ? name.equals(recipe.name) : recipe.name == null;
+
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Recipe{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", description='" + description + '\'' +
+                ", category=" + category +
+                ", prepTime=" + prepTime +
+                ", cookTime=" + cookTime +
+                ", ingredients=" + ingredients +
+                ", steps=" + steps +
+                '}';
     }
 }
