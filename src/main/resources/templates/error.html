@@ -7,6 +7,10 @@
 
 <section>
     <div class="grid-container">
+        <div class="errors" th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
+            <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
+            <p th:utext="${message}"></p>
+        </div>
         <p class="errors" th:text="${errors}"></p>
     </div>
 </section>

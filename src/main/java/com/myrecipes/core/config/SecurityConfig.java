@@ -1,6 +1,6 @@
 package com.myrecipes.core.config;
 
-import com.myrecipes.authentication.DetailsService;
+import com.myrecipes.service.DetailsService;
 import com.myrecipes.core.web.FlashMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -29,7 +29,7 @@ public class SecurityConfig
     @Order(1)
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
-            // TODO: REMOVE HTTP BASICS AND ENABLE CSRF FOR REAL-LIFE APPLICATION.
+            // TODO: enable security and csrf
             http
                     .antMatcher("/api/**")
                     .authorizeRequests()
@@ -65,6 +65,7 @@ public class SecurityConfig
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
+            //TODO: configure security
             http
                     .authorizeRequests()
                     .anyRequest()

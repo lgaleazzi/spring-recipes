@@ -30,7 +30,7 @@
                 </div> <div class="clear"></div>
 
                 <div class="grid-100 row addHover" th:each="recipe : ${recipes}">
-                    <a href="detail.html">
+                    <a th:href="@{|/recipes/${recipe.id}|}">
                         <div class="grid-70">
                             <p>
                                 <span th:text="${recipe.name}"><img src="images/favorite.svg" height="12px"> </span>

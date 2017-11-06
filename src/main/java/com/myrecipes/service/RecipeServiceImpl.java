@@ -1,10 +1,11 @@
-package com.myrecipes.recipe;
+package com.myrecipes.service;
 
-import com.google.common.collect.Lists;
+import com.myrecipes.repository.RecipeRepository;
+import com.myrecipes.model.Category;
+import com.myrecipes.model.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,12 +18,18 @@ public class RecipeServiceImpl implements RecipeService
     @Override
     public List<Recipe> findAll()
     {
-        return Lists.newArrayList(recipeRepository.findAll());
+        return recipeRepository.findAll();
     }
 
     @Override
     public List<Category> allCategories()
     {
         return Arrays.asList(Category.values());
+    }
+
+    @Override
+    public Recipe findById(Long id)
+    {
+        return recipeRepository.findOne(id);
     }
 }

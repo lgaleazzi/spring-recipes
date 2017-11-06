@@ -1,5 +1,7 @@
-package com.myrecipes.authentication;
+package com.myrecipes.service;
 
+import com.myrecipes.model.User;
+import com.myrecipes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;

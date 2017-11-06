@@ -1,4 +1,4 @@
-package com.myrecipes.authentication;
+package com.myrecipes.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

@@ -1,4 +1,4 @@
-package com.myrecipes.authentication;
+package com.myrecipes.service;
 
 import org.springframework.stereotype.Service;
 

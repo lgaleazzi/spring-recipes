@@ -1,6 +1,5 @@
-package com.myrecipes.step;
+package com.myrecipes.model;
 
-import com.myrecipes.recipe.Recipe;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -18,7 +17,15 @@ public class Step
     @ManyToOne
     private Recipe recipe;
 
-    public Step() {}
+    public Step(String description)
+    {
+        this.description = description;
+    }
+
+    public Step()
+    {
+        this(null);
+    }
 
     public Long getId()
     {

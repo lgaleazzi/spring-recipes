@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head th:fragment="head">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
 
     <title>Title</title>
 
-    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="css/unsemantic-grid-responsive.css">
-    <link rel="stylesheet" href="css/styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" th:href="@{/assets/css/unsemantic-grid-responsive.css}" />
+    <link rel="stylesheet" th:href="@{/assets/css/styles.css}" />
 </head>
 
 <nav th:fragment="nav">
@@ -18,8 +18,8 @@
 <div th:fragment="logo" class="grid-100">
     <a th:href="@{/}">
         <h1>
-            <img src="images/chefbot.svg" height="60px">
-            <br>
+            <img th:src="@{/assets/images/chefbot.svg}" height="60px" />
+            <br />
             My Recipes
         </h1>
     </a>

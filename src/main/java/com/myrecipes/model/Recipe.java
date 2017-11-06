@@ -1,7 +1,5 @@
-package com.myrecipes.recipe;
+package com.myrecipes.model;
 
-import com.myrecipes.ingredient.Ingredient;
-import com.myrecipes.step.Step;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -21,6 +19,8 @@ public class Recipe
 
     private String image;
 
+    private String description;
+
     @NotNull
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -35,10 +35,11 @@ public class Recipe
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<Step> steps;
 
-    public Recipe(String name, String image, Category category, int prepTime, int cookTime)
+    public Recipe(String name, String image, String description, Category category, int prepTime, int cookTime)
     {
         this.name = name;
         this.image = image;
+        this.description = description;
         this.category = category;
         this.prepTime = prepTime;
         this.cookTime = cookTime;
@@ -48,10 +49,8 @@ public class Recipe
 
     public Recipe()
     {
-        ingredients = new ArrayList<>();
-        steps = new ArrayList<>();
+        this(null, null, null, null, 0, 0);
     }
-
 
 
     public Long getId()
@@ -82,6 +81,16 @@ public class Recipe
     public void setImage(String image)
     {
         this.image = image;
+    }
+
+    public String getDescription()
+    {
+        return description;
+    }
+
+    public void setDescription(String description)
+    {
+        this.description = description;
     }
 
     public Category getCategory()

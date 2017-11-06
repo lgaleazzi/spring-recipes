@@ -1,6 +1,6 @@
-package com.myrecipes.ingredient;
+package com.myrecipes.model;
 
-import com.myrecipes.recipe.Recipe;
+import com.myrecipes.model.Recipe;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -24,7 +24,18 @@ public class Ingredient
     @ManyToOne
     private Recipe recipe;
 
-    public Ingredient() {}
+    public Ingredient(String item, String condition, String quantity, Recipe recipe)
+    {
+        this.item = item;
+        this.condition = condition;
+        this.quantity = quantity;
+        this.recipe = recipe;
+    }
+
+    public Ingredient()
+    {
+        this(null, null, null, null);
+    }
 
     public Recipe getRecipe()
     {

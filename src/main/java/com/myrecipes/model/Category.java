@@ -1,4 +1,4 @@
-package com.myrecipes.recipe;
+package com.myrecipes.model;
 
 public enum Category
 {
