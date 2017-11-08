@@ -19,17 +19,12 @@ import java.util.List;
 public class DataLoader implements ApplicationRunner
 {
     private final RecipeRepository recipeRepository;
-    private final StepRepository stepRepository;
-    private final IngredientRepository ingredientRepository;
 
     @Autowired
-    public DataLoader(RecipeRepository recipeRepository, StepRepository stepRepository, IngredientRepository ingredientRepository)
+    public DataLoader(RecipeRepository recipeRepository)
     {
         this.recipeRepository = recipeRepository;
-        this.ingredientRepository = ingredientRepository;
-        this.stepRepository = stepRepository;
     }
-
 
     @Override
     public void run(ApplicationArguments args) throws Exception
@@ -55,10 +50,6 @@ public class DataLoader implements ApplicationRunner
         recipes.get(0).getSteps().addAll(steps);
         recipes.get(0).getIngredients().addAll(ingredients);
 
-        //System.out.println(recipes.get(0));
         recipes.forEach(recipeRepository::save);
-        //System.out.println("Recipe: " + recipeRepository.findOne(1L));
-        //System.out.println("Ingredients: " + ingredientRepository.findAll());
-        //System.out.println("Steps: " + stepRepository.findAll());
     }
 }
