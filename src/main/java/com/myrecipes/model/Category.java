@@ -2,6 +2,7 @@ package com.myrecipes.model;
 
 public enum Category
 {
+    ALL("All Categories"),
     BREAKFAST("Breakfast"),
     LUNCH("Lunch"),
     DINNER("Dinner"),
