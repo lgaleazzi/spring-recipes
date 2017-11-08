@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -36,9 +38,26 @@ public class RecipeController
     public String recipeDetails(@PathVariable Long id, Model model)
     {
         Recipe recipe = recipeService.findById(id);
-        //System.out.println(recipe);
         model.addAttribute("recipe", recipe);
 
         return "recipe/detail";
+    }
+
+    @RequestMapping("/recipes/add")
+    public String addForm(Model model)
+    {
+        if (!model.containsAttribute("recipe"))
+        {
+            model.addAttribute("recipe", new Recipe());
+        }
+
+        return "recipe/form";
+    }
+
+    @RequestMapping(value = "/recipes", method = RequestMethod.POST)
+    public String addRecipe(@Valid Recipe recipe)
+    {
+        recipeService.save(recipe);
+        return "redirect:/";
     }
 }

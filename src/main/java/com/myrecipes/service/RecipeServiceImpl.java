@@ -32,4 +32,10 @@ public class RecipeServiceImpl implements RecipeService
     {
         return recipeRepository.findOne(id);
     }
+
+    @Override
+    public void save(Recipe recipe)
+    {
+        recipeRepository.save(recipe);
+    }
 }
