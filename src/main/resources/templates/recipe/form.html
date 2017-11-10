@@ -14,7 +14,7 @@
 
             <div class="recipes">
 
-                <form th:object="${recipe}" th:action="@{/recipes}" method="post">
+                <form th:object="${recipe}" th:action="@{/recipes}" method="post" enctype="multipart/form-data">
 
                     <input type="hidden" th:field="*{id}"/>
 
@@ -38,7 +38,11 @@
                         </div>
                         <div class="grid-40">
                             <p>
-                                <input placeholder="Url"/>
+                            <div class="file-wrapper">
+                                <input type="file" id="file" name="file"/>
+                                <span class="placeholder" data-placeholder="Choose an image...">Choose an image...</span>
+                                <label for="file" class="button">Browse</label>
+                            </div>
                             </p>
                         </div>
                     </div> <div class="clear"></div> <!-- photo -->

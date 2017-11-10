@@ -4,7 +4,6 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,7 +22,8 @@ public class Recipe
     @NotBlank
     private String name;
 
-    private String image;
+    @Lob
+    private byte[] image;
 
     private String description;
 
@@ -42,7 +42,7 @@ public class Recipe
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private Set<Step> steps;
 
-    public Recipe(String name, String image, String description, Category category, int prepTime, int cookTime)
+    public Recipe(String name, byte[] image, String description, Category category, int prepTime, int cookTime)
     {
         this.name = name;
         this.image = image;
@@ -80,12 +80,12 @@ public class Recipe
         this.name = name;
     }
 
-    public String getImage()
+    public byte[] getImage()
     {
         return image;
     }
 
-    public void setImage(String image)
+    public void setImage(byte[] image)
     {
         this.image = image;
     }

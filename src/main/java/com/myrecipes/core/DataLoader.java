@@ -30,9 +30,9 @@ public class DataLoader implements ApplicationRunner
     public void run(ApplicationArguments args) throws Exception
     {
         List<Recipe> recipes = Arrays.asList(
-            new Recipe("Cookies", "http://mycookies.jpeg", "Delicious chocolate cookies",
+            new Recipe("Cookies", null, "Delicious chocolate cookies",
                     Category.DESSERT, 15, 30),
-            new Recipe("Chocolate Cake", "http://mychocolatecake.jpeg", "Fantastic chocolate cake",
+            new Recipe("Chocolate Cake", null, "Fantastic chocolate cake",
                 Category.DESSERT, 20, 60)
         );
 

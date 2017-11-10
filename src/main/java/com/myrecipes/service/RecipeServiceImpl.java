@@ -1,11 +1,14 @@
 package com.myrecipes.service;
 
+import com.myrecipes.exception.FileUploadException;
 import com.myrecipes.repository.RecipeRepository;
 import com.myrecipes.model.Category;
 import com.myrecipes.model.Recipe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,8 +37,16 @@ public class RecipeServiceImpl implements RecipeService
     }
 
     @Override
-    public void save(Recipe recipe)
+    public void save(Recipe recipe, MultipartFile file)
     {
-        recipeRepository.save(recipe);
+        try
+        {
+            recipe.setImage(file.getBytes());
+            recipeRepository.save(recipe);
+        } catch (IOException e)
+        {
+            throw new FileUploadException("The file could not be uploaded");
+        }
+
     }
 }

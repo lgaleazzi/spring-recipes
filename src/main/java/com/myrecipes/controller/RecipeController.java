@@ -6,10 +6,8 @@ import com.myrecipes.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -55,9 +53,9 @@ public class RecipeController
     }
 
     @RequestMapping(value = "/recipes", method = RequestMethod.POST)
-    public String addRecipe(@Valid Recipe recipe)
+    public String addRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file)
     {
-        recipeService.save(recipe);
+        recipeService.save(recipe, file);
         return "redirect:/";
     }
 }
