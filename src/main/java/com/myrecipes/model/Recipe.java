@@ -42,6 +42,24 @@ public class Recipe
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private Set<Step> steps;
 
+    public Recipe(RecipeBuilder builder)
+    {
+        this.name = builder.name;
+        this.image = builder.image;
+        this.description = builder.description;
+        this.category = builder.category;
+        this.prepTime = builder.prepTime;
+        this.cookTime = builder.cookTime;
+        if (builder.ingredients != null)
+        {
+            this.ingredients = builder.ingredients;
+        }
+        if (builder.steps != null)
+        {
+            this.steps = builder.steps;
+        }
+    }
+
     public Recipe(String name, byte[] image, String description, Category category, int prepTime, int cookTime)
     {
         this.name = name;
@@ -56,7 +74,8 @@ public class Recipe
 
     public Recipe()
     {
-        this(null, null, null, null, 0, 0);
+        ingredients = new HashSet<>();
+        steps = new HashSet<>();
     }
 
 
@@ -188,5 +207,65 @@ public class Recipe
                 ", ingredients=" + ingredients +
                 ", steps=" + steps +
                 '}';
+    }
+
+    public static class RecipeBuilder
+    {
+        private String name;
+        private byte[] image;
+        private String description;
+        private Category category;
+        private int prepTime;
+        private int cookTime;
+        private Set<Ingredient> ingredients;
+        private Set<Step> steps;
+
+        public RecipeBuilder(String name, Category category)
+        {
+            this.name = name;
+            this.category = category;
+        }
+
+        public RecipeBuilder withImage(byte[] image)
+        {
+            this.image = image;
+            return this;
+        }
+
+        public RecipeBuilder withDescription(String description)
+        {
+            this.description = description;
+            return this;
+        }
+
+        public RecipeBuilder withPrepTime(int prepTime)
+        {
+            this.prepTime = prepTime;
+            return this;
+        }
+
+        public RecipeBuilder withCookTime(int cookTime)
+        {
+            this.cookTime = cookTime;
+            return this;
+        }
+
+        public RecipeBuilder withIngredients(Set<Ingredient> ingredients)
+        {
+            this.ingredients = ingredients;
+            return this;
+        }
+
+        public RecipeBuilder withSteps(Set<Step> steps)
+        {
+            this.steps = steps;
+            return this;
+        }
+
+        public Recipe build()
+        {
+            return new Recipe(this);
+        }
+
     }
 }

@@ -17,15 +17,14 @@ public class Step
     @ManyToOne
     private Recipe recipe;
 
-    public Step(String description, Recipe recipe)
+    public Step(String description)
     {
         this.description = description;
-        this.recipe = recipe;
     }
 
     public Step()
     {
-        this(null, null);
+        this(null);
     }
 
     public Long getId()

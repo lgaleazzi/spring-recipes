@@ -24,17 +24,16 @@ public class Ingredient
     @ManyToOne
     private Recipe recipe;
 
-    public Ingredient(String item, String condition, String quantity, Recipe recipe)
+    public Ingredient(String item, String condition, String quantity)
     {
         this.item = item;
         this.condition = condition;
         this.quantity = quantity;
-        this.recipe = recipe;
     }
 
     public Ingredient()
     {
-        this(null, null, null, null);
+        this(null, null, null);
     }
 
     public Recipe getRecipe()

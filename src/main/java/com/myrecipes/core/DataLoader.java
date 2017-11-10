@@ -13,7 +13,9 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Component
 public class DataLoader implements ApplicationRunner
@@ -29,26 +31,36 @@ public class DataLoader implements ApplicationRunner
     @Override
     public void run(ApplicationArguments args) throws Exception
     {
+
+        Set<Ingredient> ingredients = new HashSet<>(Arrays.asList(
+                new Ingredient("Eggs", "Fresh", "3"),
+                new Ingredient("Milk", "Fresh", "0.5L")
+        ));
+
+        Set<Step> steps = new HashSet<>(Arrays.asList(
+                new Step("First do this"),
+                new Step("And then do that"),
+                new Step("Finally do this")
+        ));
+
         List<Recipe> recipes = Arrays.asList(
-            new Recipe("Cookies", null, "Delicious chocolate cookies",
-                    Category.DESSERT, 15, 30),
-            new Recipe("Chocolate Cake", null, "Fantastic chocolate cake",
-                Category.DESSERT, 20, 60)
+                new Recipe.RecipeBuilder("Cookies", Category.DESSERT)
+                        .withDescription("Delicious chocolate cookies")
+                        .withPrepTime(15)
+                        .withCookTime(30)
+                        .withIngredients(ingredients)
+                        .withSteps(steps)
+                        .build(),
+
+                new Recipe.RecipeBuilder("Chocolate Cake", Category.DESSERT)
+                        .withDescription("Fantastic chocolate cake")
+                        .withPrepTime(20)
+                        .withCookTime(60)
+                        .build()
         );
 
-        List<Step> steps = Arrays.asList(
-                new Step("First do this", recipes.get(0)),
-                new Step("And then do that", recipes.get(0)),
-                new Step("Finally do this", recipes.get(0))
-        );
-
-        List<Ingredient> ingredients = Arrays.asList(
-                new Ingredient("Eggs", "Fresh", "3", recipes.get(0)),
-                new Ingredient("Milk", "Fresh", "0.5L", recipes.get(0))
-        );
-
-        recipes.get(0).getSteps().addAll(steps);
-        recipes.get(0).getIngredients().addAll(ingredients);
+        ingredients.forEach(ingredient -> ingredient.setRecipe(recipes.get(0)));
+        steps.forEach(step -> step.setRecipe(recipes.get(0)));
 
         recipes.forEach(recipeRepository::save);
     }
