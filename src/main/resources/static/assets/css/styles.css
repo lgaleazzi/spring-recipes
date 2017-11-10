@@ -107,4 +107,15 @@ button {
 .flush-right {
   float: right; }
 
+.button {
+  border: 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  color: white;
+  background: #808080;
+  cursor: pointer; }
+  .button:hover {
+      background: #676767;
+      transition: background ease-in-out 0.3s; }
+
 /*# sourceMappingURL=styles.css.map */

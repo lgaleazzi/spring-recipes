@@ -15,6 +15,7 @@
             <div class="recipes">
 
                 <form th:object="${recipe}" th:action="@{/recipes}" method="post">
+
                     <input type="hidden" th:field="*{id}"/>
 
                     <div class="grid-100 row controls">
@@ -27,7 +28,7 @@
                                 <a th:href="@{/}" class="secondary">Cancel</a>
                             </div>
                         </div>
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- title and buttons -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
@@ -40,7 +41,7 @@
                                 <input placeholder="Url"/>
                             </p>
                         </div>
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- photo -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
@@ -53,7 +54,7 @@
                                 <input type="text" th:field="*{name}" />
                             </p>
                         </div>
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- name -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
@@ -66,7 +67,7 @@
                                 <textarea th:field="*{description}"> </textarea>
                             </p>
                         </div>
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- description -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
@@ -81,7 +82,7 @@
                                 </select>
                             </p>
                         </div>
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- category -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
@@ -94,7 +95,7 @@
                                 <input type="number" th:field="*{prepTime}" />
                             </p>
                         </div>
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- prep time -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
@@ -107,7 +108,7 @@
                                 <input type="number" th:field="*{cookTime}" />
                             </p>
                         </div>
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- cook time -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
@@ -131,20 +132,20 @@
                             </p>
                         </div>
 
-                        <div class="ingredient-row">
+                        <div class="ingredient-row" th:each="ingredient, stat : *{ingredients}">
                             <div class="prefix-20 grid-30">
                                 <p>
-                                    <input/>
+                                    <input type="text" th:field="*{ingredients[__${stat.index}__].item}" />
                                 </p>
                             </div>
                             <div class="grid-30">
                                 <p>
-                                    <input/>
+                                    <input  type="text" th:field="*{ingredients[__${stat.index}__].condition}" />
                                 </p>
                             </div>
                             <div class="grid-10 suffix-10">
                                 <p>
-                                    <input/>
+                                    <input  type="text" th:field="*{ingredients[__${stat.index}__].quantity}" />
                                 </p>
                             </div>
                         </div>
@@ -153,9 +154,9 @@
                             <p>
                                 <button>+ Add Another Ingredient</button>
                             </p>
-                        </div>
+                        </div> <!-- ingredients -->
 
-                    </div> <div class="clear"></div>
+                    </div> <div class="clear"></div> <!-- steps -->
 
                     <div class="grid-100 row">
                         <div class="grid-20">
