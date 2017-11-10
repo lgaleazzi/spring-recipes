@@ -41,6 +41,12 @@ public class RecipeController
         return "recipe/detail";
     }
 
+    @RequestMapping("/recipes/{id}.png")
+    @ResponseBody
+    public byte[] gifImage(@PathVariable Long id) {
+        return recipeService.findById(id).getImage();
+    }
+
     @RequestMapping("/recipes/add")
     public String addForm(Model model)
     {
