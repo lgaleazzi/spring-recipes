@@ -139,20 +139,21 @@
                             </p>
                         </div>
 
-                        <div class="ingredient-row" th:each="ingredient, stat : *{ingredients}">
+                        <div class="ingredient-row" th:each="ingredient, stat : *{ingredientsList}">
+                            <input type="hidden" th:field="*{ingredientsList[__${stat.index}__].id}" />
                             <div class="prefix-20 grid-30">
                                 <p>
-                                    <input type="text" th:field="*{ingredients[__${stat.index}__].item}" />
+                                    <input type="text" th:field="*{ingredientsList[__${stat.index}__].item}" />
                                 </p>
                             </div>
                             <div class="grid-30">
                                 <p>
-                                    <input  type="text" th:field="*{ingredients[__${stat.index}__].condition}" />
+                                    <input  type="text" th:field="*{ingredientsList[__${stat.index}__].condition}" />
                                 </p>
                             </div>
                             <div class="grid-10 suffix-10">
                                 <p>
-                                    <input  type="text" th:field="*{ingredients[__${stat.index}__].quantity}" />
+                                    <input  type="text" th:field="*{ingredientsList[__${stat.index}__].quantity}" />
                                 </p>
                             </div>
                         </div>
@@ -177,10 +178,11 @@
                             </p>
                         </div>
 
-                        <div class="step-row" th:each="step, stat : *{steps}">
+                        <div class="step-row" th:each="step, stat : *{stepsList}">
+                            <input type="hidden" th:field="*{stepsList[__${stat.index}__].id}" />
                             <div class="prefix-20 grid-80">
                                 <p>
-                                    <input  type="text" th:field="*{steps[__${stat.index}__].description}" />
+                                    <input  type="text" th:field="*{stepsList[__${stat.index}__].description}" />
                                 </p>
                             </div>
                         </div>

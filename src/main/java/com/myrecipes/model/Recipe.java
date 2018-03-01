@@ -4,7 +4,9 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -159,6 +161,14 @@ public class Recipe
         this.ingredients = ingredients;
     }
 
+    //List needed by Thymeleaf to access elements in form
+    public List<Ingredient> getIngredientsList() {return new ArrayList<>(ingredients);}
+
+    public void setIngredientsList(List<Ingredient> ingredients)
+    {
+        this.ingredients = new HashSet<>(ingredients);
+    }
+
     public Set<Step> getSteps()
     {
         return steps;
@@ -167,6 +177,17 @@ public class Recipe
     public void setSteps(Set<Step> steps)
     {
         this.steps = steps;
+    }
+
+    //List needed by Thymeleaf to access elements in form
+    public List<Step> getStepsList()
+    {
+        return new ArrayList<>(steps);
+    }
+
+    public void setStepsList(List<Step> steps)
+    {
+        this.steps = new HashSet<>(steps);
     }
 
     @Override
