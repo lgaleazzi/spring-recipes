@@ -31,7 +31,7 @@
                             <label> Photo </label>
                         </p>
                     </div>
-                    <div class="grid-40">
+                    <div class="grid-40" th:if="*{image} != null">
                         <p>
                             <img th:src="@{|/recipes/*{id}.png|}" alt="photo" />
                         </p>
