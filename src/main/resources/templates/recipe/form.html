@@ -14,7 +14,7 @@
 
             <div class="recipes">
 
-                <form th:object="${recipe}" th:action="@{/recipes}" method="post" enctype="multipart/form-data">
+                <form th:object="${recipe}" th:action="@{${action}}" method="post" enctype="multipart/form-data">
 
                     <input type="hidden" th:field="*{id}"/>
 
@@ -24,7 +24,7 @@
                         </div>
                         <div class="grid-50">
                             <div class="flush-right">
-                                <button type="submit">Save Recipe</button>
+                                <button type="submit" value="save">Save Recipe</button>
                                 <a th:href="@{/}" class="secondary">Cancel</a>
                             </div>
                         </div>
@@ -174,10 +174,10 @@
                             </p>
                         </div>
 
-                        <div class="step-row">
+                        <div class="step-row" th:each="step, stat : *{steps}">
                             <div class="prefix-20 grid-80">
                                 <p>
-                                    <input/>
+                                    <input  type="text" th:field="*{steps[__${stat.index}__].description}" />
                                 </p>
                             </div>
                         </div>

@@ -54,7 +54,7 @@ public class RecipeController
         {
             model.addAttribute("recipe", new Recipe());
         }
-
+        model.addAttribute("action", "/recipes");
         return "recipe/form";
     }
 
@@ -70,5 +70,26 @@ public class RecipeController
     {
         recipeService.delete(id);
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/recipes/{id}/edit")
+    public String editForm(@PathVariable Long id, Model model)
+    {
+        Recipe recipe = recipeService.findById(id);
+        if (!model.containsAttribute("recipe"))
+        {
+            model.addAttribute("recipe", recipe);
+        }
+        model.addAttribute("action", "/recipes/" + recipe.getId());
+
+        return "recipe/form";
+    }
+
+    @RequestMapping(value = "/recipes/{id}", method = RequestMethod.POST)
+    public String editProject(@Valid Recipe recipe, @RequestParam MultipartFile file)
+    {
+        recipeService.save(recipe, file);
+
+        return String.format("redirect:/recipes/%s", recipe.getId());
     }
 }

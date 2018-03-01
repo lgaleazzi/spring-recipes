@@ -40,7 +40,7 @@
                         <div class="grid-30">
                             <div class="flush-right">
                                 <p>
-                                    <a href="edit.html"> <img th:src="@{/assets/images/edit.svg}" height="12px"> Edit </a>
+                                    <a th:href="@{|/recipes/${recipe.id}/edit|}"> <img th:src="@{/assets/images/edit.svg}" height="12px"> Edit </a>
                                     <a th:href="@{|/recipes/${recipe.id}/delete|}"> <img th:src="@{/assets/images/delete.svg}" height="12px"> Delete </a>
                                 </p>
                             </div>
