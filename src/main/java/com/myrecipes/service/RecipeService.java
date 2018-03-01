@@ -12,4 +12,5 @@ public interface RecipeService
     List<Category> allCategories();
     Recipe findById(Long id);
     void save(Recipe recipe, MultipartFile file);
+    void delete(Long id);
 }
