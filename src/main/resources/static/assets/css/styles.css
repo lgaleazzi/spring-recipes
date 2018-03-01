@@ -11,8 +11,6 @@ body {
 a {
   color: #808080;
   text-decoration: none; }
-  a:hover {
-    color: #676767; }
 
 h1 {
   font-size: 26px;
@@ -32,12 +30,13 @@ nav {
 .controls select, .controls input {
   margin-top: 20px; }
 .controls a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .add-button {
     height: 60px;
+    margin-top: 45px;
 }
 
 button, select, input, textarea {

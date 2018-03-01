@@ -14,16 +14,22 @@
 
                 <div class="grid-100 row controls">
                     <div class="grid-30">
-                        <select>
-                            <option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}">Breakfast</option>
-                        </select>
+                        <p>
+                            <select>
+                                <option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}">Breakfast</option>
+                            </select>
+                        </p>
                     </div>
                     <div class="grid-40">
-                        <input placeholder="Search" />
+                        <p>
+                            <input placeholder="Search" />
+                        </p>
                     </div>
-                    <div class="grid-30 add-button">
-                        <div class="flush-right add-button">
-                            <a class="button" th:href="@{/recipes/add}">+ Add Recipe</a>
+                    <div class="grid-30">
+                        <div class="flush-right">
+                            <p class="add-button">
+                                <a class="button" th:href="@{/recipes/add}">+ Add Recipe</a>
+                            </p>
                         </div>
                     </div>
                 </div> <div class="clear"></div>
