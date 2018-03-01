@@ -160,7 +160,7 @@
 
                         <div class="prefix-20 grid-80 add-row">
                             <p>
-                                <button>+ Add Another Ingredient</button>
+                                <button id="add-ingredient" type="button">+ Add Another Ingredient</button>
                             </p>
                         </div>
 
@@ -187,9 +187,9 @@
                             </div>
                         </div>
 
-                        <div class="prefix-20 grid-80 add-row">
+                        <div id="add-step-row" class="prefix-20 grid-80 add-row">
                             <p>
-                                <button>+ Add Another Step</button>
+                                <button id="add-step" type="button">+ Add Another Step</button>
                             </p>
                         </div>
 
@@ -205,6 +205,11 @@
     </div> <!-- grid-container -->
 
 </section>
+
+<footer>
+    <div th:replace="layout :: scripts"></div>
+</footer>
+
 
 </body>
 

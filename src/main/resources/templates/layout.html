@@ -29,6 +29,9 @@
     <div th:classappend="${#strings.toLowerCase(flash.status)}" th:text="${flash.message}" class="flash"></div>
 </div>
 
-
+<div th:fragment="scripts">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{/assets/js/app.js}"></script>
+</div>
 
 </html>
