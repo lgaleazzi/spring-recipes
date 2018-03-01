@@ -15,16 +15,15 @@
                 <div class="grid-100 row controls">
                     <div class="grid-30">
                         <select>
-                            <option value="">All Categories</option>
                             <option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}">Breakfast</option>
                         </select>
                     </div>
                     <div class="grid-40">
                         <input placeholder="Search" />
                     </div>
-                    <div class="grid-30">
-                        <div class="flush-right">
-                            <button>+ Add Recipe</button>
+                    <div class="grid-30 add-button">
+                        <div class="flush-right add-button">
+                            <a class="button" th:href="@{/recipes/add}">+ Add Recipe</a>
                         </div>
                     </div>
                 </div> <div class="clear"></div>
@@ -33,7 +32,7 @@
                     <a th:href="@{|/recipes/${recipe.id}|}">
                         <div class="grid-70">
                             <p>
-                                <span th:text="${recipe.name}"><img src="images/favorite.svg" height="12px"> </span>
+                                <span th:text="${recipe.name}"><img th:src="@{/assets/images/favorite.svg}" height="12px"> </span>
                             </p>
                         </div>
                     </a>
@@ -41,8 +40,8 @@
                         <div class="grid-30">
                             <div class="flush-right">
                                 <p>
-                                    <a href="edit.html"> <img src="images/edit.svg" height="12px"> Edit </a>
-                                    <a href="#"> <img src="images/delete.svg" height="12px"> Delete </a>
+                                    <a href="edit.html"> <img th:src="@{/assets/images/edit.svg}" height="12px"> Edit </a>
+                                    <a href="#"> <img th:src="@{/assets/images/delete.svg}" height="12px"> Delete </a>
                                 </p>
                             </div>
                         </div>

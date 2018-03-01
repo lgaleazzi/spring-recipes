@@ -1,6 +1,6 @@
 body {
   max-width: 800px;
-  background: #f6ebe5;
+  background: #B0E0E6;
   color: #808080;
   font-family: 'Varela Round', Helvetica, Arial, sans-serif;
   text-align: center;
@@ -31,6 +31,14 @@ nav {
   margin: 20px 0; }
 .controls select, .controls input {
   margin-top: 20px; }
+.controls a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.add-button {
+    height: 60px;
+}
 
 button, select, input, textarea {
   font-family: 'Varela Round', Helvetica, Arial, sans-serif;
