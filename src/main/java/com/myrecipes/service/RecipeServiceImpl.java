@@ -39,15 +39,24 @@ public class RecipeServiceImpl implements RecipeService
     @Override
     public void save(Recipe recipe, MultipartFile file)
     {
-        try
+        //if no new file was uploaded, associate the object with the image already uploaded
+        if (file.isEmpty())
         {
-            recipe.setImage(file.getBytes());
+            byte[] image = recipeRepository.findOne(recipe.getId()).getImage();
+            recipe.setImage(image);
             recipeRepository.save(recipe);
-        } catch (IOException e)
+        } else
+        //otherwise upload the new file
         {
-            throw new FileUploadException("The file could not be uploaded");
+            try
+            {
+                recipe.setImage(file.getBytes());
+                recipeRepository.save(recipe);
+            } catch (IOException e)
+            {
+                throw new FileUploadException("The file could not be uploaded");
+            }
         }
-
     }
 
     @Override
