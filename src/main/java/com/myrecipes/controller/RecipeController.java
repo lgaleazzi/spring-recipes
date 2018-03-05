@@ -1,7 +1,9 @@
 package com.myrecipes.controller;
 
 import com.myrecipes.model.Category;
+import com.myrecipes.model.Ingredient;
 import com.myrecipes.model.Recipe;
+import com.myrecipes.model.Step;
 import com.myrecipes.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -52,8 +54,12 @@ public class RecipeController
     {
         if (!model.containsAttribute("recipe"))
         {
-            model.addAttribute("recipe", new Recipe());
+            Recipe recipe = new Recipe();
+            recipe.getSteps().add(new Step());
+            recipe.getIngredients().add(new Ingredient());
+            model.addAttribute("recipe", recipe);
         }
+
         model.addAttribute("action", "/recipes");
         return "recipe/form";
     }

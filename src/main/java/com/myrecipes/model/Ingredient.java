@@ -21,9 +21,6 @@ public class Ingredient
     @NotBlank
     private String quantity;
 
-    @ManyToOne
-    private Recipe recipe;
-
     public Ingredient(String item, String condition, String quantity)
     {
         this.item = item;
@@ -34,16 +31,6 @@ public class Ingredient
     public Ingredient()
     {
         this(null, null, null);
-    }
-
-    public Recipe getRecipe()
-    {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe)
-    {
-        this.recipe = recipe;
     }
 
     public Long getId()

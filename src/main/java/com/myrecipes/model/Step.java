@@ -12,14 +12,11 @@ public class Step
     private Long id;
 
     @NotBlank
-    private String description;
+    private String stepName;
 
-    @ManyToOne
-    private Recipe recipe;
-
-    public Step(String description)
+    public Step(String stepName)
     {
-        this.description = description;
+        this.stepName = stepName;
     }
 
     public Step()
@@ -37,24 +34,14 @@ public class Step
         this.id = id;
     }
 
-    public String getDescription()
+    public String getStepName()
     {
-        return description;
+        return stepName;
     }
 
-    public void setDescription(String description)
+    public void setStepName(String stepName)
     {
-        this.description = description;
-    }
-
-    public Recipe getRecipe()
-    {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe)
-    {
-        this.recipe = recipe;
+        this.stepName = stepName;
     }
 
     @Override
@@ -69,7 +56,7 @@ public class Step
 
         if (id != null ? !id.equals(step.id) : step.id != null)
             return false;
-        return description != null ? description.equals(step.description) : step.description == null;
+        return stepName != null ? stepName.equals(step.stepName) : step.stepName == null;
 
     }
 
@@ -77,7 +64,7 @@ public class Step
     public int hashCode()
     {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (stepName != null ? stepName.hashCode() : 0);
         return result;
     }
 
@@ -86,7 +73,7 @@ public class Step
     {
         return "Step{" +
                 "id=" + id +
-                ", description='" + description + '\'' +
+                ", stepName='" + stepName + '\'' +
                 //", recipe=" + recipe +
                 '}';
     }

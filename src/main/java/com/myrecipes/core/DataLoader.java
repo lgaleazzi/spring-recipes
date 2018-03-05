@@ -1,21 +1,16 @@
 package com.myrecipes.core;
 
 import com.myrecipes.model.Ingredient;
-import com.myrecipes.repository.IngredientRepository;
 import com.myrecipes.model.Category;
 import com.myrecipes.model.Recipe;
 import com.myrecipes.repository.RecipeRepository;
 import com.myrecipes.model.Step;
-import com.myrecipes.repository.StepRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class DataLoader implements ApplicationRunner
@@ -37,7 +32,7 @@ public class DataLoader implements ApplicationRunner
                 new Ingredient("Milk", "Fresh", "0.5L")
         ));
 
-        Set<Step> steps = new HashSet<>(Arrays.asList(
+        List<Step> steps = new ArrayList<>(Arrays.asList(
                 new Step("First do this"),
                 new Step("And then do that"),
                 new Step("Finally do this")
@@ -59,9 +54,12 @@ public class DataLoader implements ApplicationRunner
                         .build()
         );
 
-        ingredients.forEach(ingredient -> ingredient.setRecipe(recipes.get(0)));
-        steps.forEach(step -> step.setRecipe(recipes.get(0)));
+        //ingredients.forEach(ingredient -> ingredient.setRecipe(recipes.get(0)));
+        //steps.forEach(step -> step.setRecipe(recipes.get(0)));
 
         recipes.forEach(recipeRepository::save);
+
+        System.out.println("Recipe: " + recipes.get(0));
+        System.out.println("Recipe ind DB: " + recipeRepository.findOne(1L));
     }
 }
