@@ -9,11 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 
 @Entity
-//NamedEntityGraph allows fetching steps and ingredients in repository
-@NamedEntityGraph(name = "Recipe.detail", attributeNodes = {
-        @NamedAttributeNode("steps"),
-        @NamedAttributeNode("ingredients")
-})
 public class Recipe
 {
     @Id
@@ -36,13 +31,17 @@ public class Recipe
 
     private int cookTime;
 
-    //Using Set so Hibernate can load both collections
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    //Ordering prevents multiple selects of children entities
     @OrderColumn(name = "id")
+    //JoinColumn annotation prevents additional table
+    @JoinColumn(name = "recipe_id")
     private List<Ingredient> ingredients;
 
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    //Ordering prevents multiple selects of children entities
     @OrderColumn(name = "id")
+    @JoinColumn(name = "recipe_id")
     private List<Step> steps;
 
     public Recipe(RecipeBuilder builder)
@@ -161,11 +160,6 @@ public class Recipe
         this.ingredients = ingredients;
     }
 
-    //List needed by Thymeleaf to access elements in form
-    //public List<Ingredient> getIngredientsList() {return new ArrayList<>(ingredients);}
-
-    //public void setIngredientsList(List<Ingredient> ingredients) {this.ingredients = new HashSet<>(ingredients);}
-
     public List<Step> getSteps()
     {
         return steps;
@@ -175,17 +169,6 @@ public class Recipe
     {
         this.steps = steps;
     }
-
-/*    //List needed by Thymeleaf to access elements in form
-    public List<Step> getStepsList()
-    {
-        return new ArrayList<>(steps);
-    }
-
-    public void setStepsList(List<Step> steps)
-    {
-        this.steps = new HashSet<>(steps);
-    }*/
 
     @Override
     public boolean equals(Object o)

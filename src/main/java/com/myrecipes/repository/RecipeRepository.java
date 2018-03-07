@@ -12,6 +12,5 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long>
 {
     List<Recipe> findAll();
 
-    //@EntityGraph(value = "Recipe.detail", type = EntityGraph.EntityGraphType.LOAD)
     Recipe findOne(Long id);
 }

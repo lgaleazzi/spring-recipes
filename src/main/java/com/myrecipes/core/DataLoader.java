@@ -54,13 +54,6 @@ public class DataLoader implements ApplicationRunner
                         .build()
         );
 
-        //ingredients.forEach(ingredient -> ingredient.setRecipe(recipes.get(0)));
-        //steps.forEach(step -> step.setRecipe(recipes.get(0)));
-
-        System.out.println("--- Saving recipes ---");
         recipes.forEach(recipeRepository::save);
-
-        System.out.println("Recipe: " + recipes.get(0));
-        System.out.println("Recipe in DB: " + recipeRepository.findOne(1L));
     }
 }
