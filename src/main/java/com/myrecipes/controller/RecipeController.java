@@ -31,6 +31,7 @@ public class RecipeController
     {
         List<Recipe> recipes = recipeService.findAll();
         model.addAttribute("recipes", recipes);
+
         return "recipe/index";
     }
 

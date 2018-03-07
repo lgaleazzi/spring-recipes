@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 //NamedEntityGraph allows fetching steps and ingredients in repository
@@ -38,10 +37,12 @@ public class Recipe
     private int cookTime;
 
     //Using Set so Hibernate can load both collections
-    @OneToMany(cascade = CascadeType.ALL)
-    private Set<Ingredient> ingredients;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "id")
+    private List<Ingredient> ingredients;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OrderColumn(name = "id")
     private List<Step> steps;
 
     public Recipe(RecipeBuilder builder)
@@ -64,7 +65,7 @@ public class Recipe
 
     public Recipe()
     {
-        ingredients = new HashSet<>();
+        ingredients = new ArrayList<>();
         steps = new ArrayList<>();
     }
 
@@ -150,23 +151,20 @@ public class Recipe
         this.cookTime = cookTime;
     }
 
-    public Set<Ingredient> getIngredients()
+    public List<Ingredient> getIngredients()
     {
         return ingredients;
     }
 
-    public void setIngredients(Set<Ingredient> ingredients)
+    public void setIngredients(List<Ingredient> ingredients)
     {
         this.ingredients = ingredients;
     }
 
     //List needed by Thymeleaf to access elements in form
-    public List<Ingredient> getIngredientsList() {return new ArrayList<>(ingredients);}
+    //public List<Ingredient> getIngredientsList() {return new ArrayList<>(ingredients);}
 
-    public void setIngredientsList(List<Ingredient> ingredients)
-    {
-        this.ingredients = new HashSet<>(ingredients);
-    }
+    //public void setIngredientsList(List<Ingredient> ingredients) {this.ingredients = new HashSet<>(ingredients);}
 
     public List<Step> getSteps()
     {
@@ -237,7 +235,7 @@ public class Recipe
         private Category category;
         private int prepTime;
         private int cookTime;
-        private Set<Ingredient> ingredients;
+        private List<Ingredient> ingredients;
         private List<Step> steps;
 
         public RecipeBuilder(String name, Category category)
@@ -270,7 +268,7 @@ public class Recipe
             return this;
         }
 
-        public RecipeBuilder withIngredients(Set<Ingredient> ingredients)
+        public RecipeBuilder withIngredients(List<Ingredient> ingredients)
         {
             this.ingredients = ingredients;
             return this;

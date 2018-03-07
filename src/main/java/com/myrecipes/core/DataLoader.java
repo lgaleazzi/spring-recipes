@@ -27,7 +27,7 @@ public class DataLoader implements ApplicationRunner
     public void run(ApplicationArguments args) throws Exception
     {
 
-        Set<Ingredient> ingredients = new HashSet<>(Arrays.asList(
+        List<Ingredient> ingredients = new ArrayList<>(Arrays.asList(
                 new Ingredient("Eggs", "Fresh", "3"),
                 new Ingredient("Milk", "Fresh", "0.5L")
         ));
@@ -57,9 +57,10 @@ public class DataLoader implements ApplicationRunner
         //ingredients.forEach(ingredient -> ingredient.setRecipe(recipes.get(0)));
         //steps.forEach(step -> step.setRecipe(recipes.get(0)));
 
+        System.out.println("--- Saving recipes ---");
         recipes.forEach(recipeRepository::save);
 
         System.out.println("Recipe: " + recipes.get(0));
-        System.out.println("Recipe ind DB: " + recipeRepository.findOne(1L));
+        System.out.println("Recipe in DB: " + recipeRepository.findOne(1L));
     }
 }
