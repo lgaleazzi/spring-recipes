@@ -33,14 +33,14 @@ public class Recipe
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     //Ordering prevents multiple selects of children entities
-    @OrderColumn(name = "id")
+    //@OrderColumn(name = "id")
     //JoinColumn annotation prevents additional table
     @JoinColumn(name = "recipe_id")
     private List<Ingredient> ingredients;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     //Ordering prevents multiple selects of children entities
-    @OrderColumn(name = "id")
+    //@OrderColumn(name = "id")
     @JoinColumn(name = "recipe_id")
     private List<Step> steps;
 
