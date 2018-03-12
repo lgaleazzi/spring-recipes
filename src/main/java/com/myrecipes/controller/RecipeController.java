@@ -17,14 +17,8 @@ import java.util.List;
 @Controller
 public class RecipeController
 {
-
-    private RecipeService recipeService;
-
     @Autowired
-    public RecipeController(RecipeService recipeService)
-    {
-        this.recipeService = recipeService;
-    }
+    private RecipeService recipeService;
 
     @ModelAttribute("categories")
     public List<Category> allCategories()

@@ -1,9 +1,10 @@
 package com.myrecipes.service;
 
 import com.myrecipes.exception.FileUploadException;
-import com.myrecipes.repository.RecipeRepository;
+import com.myrecipes.exception.RecipeNotFoundException;
 import com.myrecipes.model.Category;
 import com.myrecipes.model.Recipe;
+import com.myrecipes.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,9 +32,14 @@ public class RecipeServiceImpl implements RecipeService
     }
 
     @Override
-    public Recipe findById(Long id)
+    public Recipe findById(Long id) throws RecipeNotFoundException
     {
-        return recipeRepository.findOne(id);
+        Recipe recipe = recipeRepository.findOne(id);
+        if (recipe == null)
+        {
+            throw new RecipeNotFoundException(String.format("No recipe with id %s was found", id));
+        }
+        return recipe;
     }
 
     @Override
@@ -60,8 +66,12 @@ public class RecipeServiceImpl implements RecipeService
     }
 
     @Override
-    public void delete(Long id)
+    public void delete(Long id) throws RecipeNotFoundException
     {
+        if (recipeRepository.findOne(id) == null)
+        {
+            throw new RecipeNotFoundException(String.format("No recipe with id %s was found", id));
+        }
         recipeRepository.delete(id);
     }
 }
