@@ -73,7 +73,7 @@ public class RecipeControllerTest
     }
 
     @Test
-    public void add_ShouldRedirectToNewRecipe() throws Exception
+    public void add_ShouldRedirectToIndex() throws Exception
     {
         mockMvc.perform(
                 fileUpload("/recipes")
@@ -120,6 +120,57 @@ public class RecipeControllerTest
 
         mockMvc.perform(get("/recipes/1"))
                 .andExpect(status().is4xxClientError());
+    }
+
+    @Test
+    public void edit_ShouldReturnEditForm() throws Exception
+    {
+        Recipe recipe = new Recipe.RecipeBuilder("Cookies", Category.DESSERT)
+                .withDescription("Delicious chocolate cookies")
+                .withPrepTime(15)
+                .withCookTime(30)
+                .build();
+        recipe.setId(1L);
+
+        when(recipeService.findById(1L)).thenReturn(recipe);
+
+        mockMvc.perform(get("/recipes/1/edit"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("recipe/form"))
+                .andExpect(model().attribute("recipe", recipe));
+    }
+
+    @Test
+    public void edit_ShouldRedirectToDetails() throws Exception
+    {
+        Recipe recipe = new Recipe.RecipeBuilder("Cookies", Category.DESSERT)
+                .withDescription("Delicious chocolate cookies")
+                .withPrepTime(15)
+                .withCookTime(30)
+                .build();
+        recipe.setId(1L);
+
+        when(recipeService.findById(1L)).thenReturn(recipe);
+
+        mockMvc.perform(
+                fileUpload("/recipes/1")
+                        .file(new MockMultipartFile("file", "test".getBytes()))
+                        .param("id", "1")
+                        .param("name", "Cookies")
+                        .param("description", "Delicious chocolate cookies")
+                        .param("category", "DESSERT")
+                        .param("prepTime", "20")
+                        .param("cookTime", "40")
+                        .param("ingredients[0].id", "1")
+                        .param("ingredients[0].item", "Milk")
+                        .param("ingredients[0].condition", "Fresh")
+                        .param("ingredients[0].quantity", "1L")
+                        .param("steps[0].id", "1")
+                        .param("steps[0].stepName", "step 1")
+        )
+                .andExpect(redirectedUrl("/recipes/1"))
+                .andExpect(status().is3xxRedirection());
+        verify(recipeService).save(any(Recipe.class), any(MultipartFile.class));
     }
 
     @Test
