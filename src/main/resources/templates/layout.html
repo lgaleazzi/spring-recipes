@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
     <meta charset="utf-8" />
@@ -13,6 +13,14 @@
 </head>
 
 <nav th:fragment="nav">
+    <a sec:authorize="isAnonymous()" th:href="@{/signup}">sign-up</a>
+    <a sec:authorize="isAuthenticated()" sec:authentication="name" th:href="@{/profile}"></a>
+    &bull;
+    <a sec:authorize="isAnonymous()" th:href="@{/login}">login</a>
+    <form class="logout" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+        <button type="submit">logout</button>
+    </form>
+
 </nav>
 
 <div th:fragment="logo" class="grid-100">

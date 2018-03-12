@@ -125,4 +125,19 @@ button {
       background: #676767;
       transition: background ease-in-out 0.3s; }
 
+.logout button {
+    border: none;
+    background: transparent;
+    color: #808080;
+    margin: 0;
+    padding: 0;
+}
+
+.logout {
+    border: none;
+    background: transparent;
+    display: inline-block;
+}
+
+
 /*# sourceMappingURL=styles.css.map */

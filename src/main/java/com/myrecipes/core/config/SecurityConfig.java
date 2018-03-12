@@ -1,7 +1,7 @@
 package com.myrecipes.core.config;
 
-import com.myrecipes.service.DetailsService;
 import com.myrecipes.core.web.FlashMessage;
+import com.myrecipes.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -69,11 +69,7 @@ public class SecurityConfig
             http
                     .authorizeRequests()
                     .anyRequest()
-                    .anonymous();
-
-
-                  /*  .authorizeRequests()
-                        .anyRequest().hasRole("STANDARD")
+                    .permitAll()
                     .and().formLogin()
                         .loginPage("/login")
                         .permitAll()
@@ -81,8 +77,8 @@ public class SecurityConfig
                         .failureHandler(loginFailureHandler())
                     .and().logout()
                         .permitAll()
-                        .logoutSuccessUrl("/login")
-                    .and().csrf();  */
+                    .logoutSuccessUrl("/")
+                    .and().csrf();
         }
 
         public AuthenticationSuccessHandler loginSuccessHandler() {
