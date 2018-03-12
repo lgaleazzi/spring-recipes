@@ -9,15 +9,17 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class RecipeControllerTest
@@ -73,16 +75,24 @@ public class RecipeControllerTest
     @Test
     public void add_ShouldRedirectToNewRecipe() throws Exception
     {
-        //doAnswer()
         mockMvc.perform(
-                post("/recipes")
+                fileUpload("/recipes")
+                        .file(new MockMultipartFile("file", "test".getBytes()))
                         .param("name", "quiche")
                         .param("description", "quiche lorraine")
                         .param("category", "LUNCH")
                         .param("prepTime", "15")
                         .param("cookTime", "40")
-        ).andExpect(redirectedUrl("/recipes/1"));
-        verify(recipeService).save(any(Recipe.class), null);
+                        .param("ingredients[0].id", "1")
+                        .param("ingredients[0].item", "Milk")
+                        .param("ingredients[0].condition", "Fresh")
+                        .param("ingredients[0].quantity", "1L")
+                        .param("steps[0].id", "1")
+                        .param("steps[0].stepName", "step 1")
+        )
+                .andExpect(redirectedUrl("/"))
+                .andExpect(status().is3xxRedirection());
+        verify(recipeService).save(any(Recipe.class), any(MultipartFile.class));
     }
 
     @Test

@@ -65,7 +65,7 @@ public class RecipeController
         return "recipe/form";
     }
 
-    @RequestMapping(value = "/recipes", method = RequestMethod.POST)
+    @PostMapping(value = "/recipes")
     public String addRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file)
     {
         recipeService.save(recipe, file);
