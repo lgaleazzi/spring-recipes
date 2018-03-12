@@ -1,7 +1,6 @@
 package com.myrecipes.controller;
 
 import com.myrecipes.exception.RecipeNotFoundException;
-import com.myrecipes.model.Category;
 import com.myrecipes.model.Recipe;
 import com.myrecipes.service.RecipeService;
 import org.junit.Before;
@@ -14,9 +13,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Arrays;
 import java.util.List;
 
+import static com.myrecipes.data.RecipeData.recipe1;
+import static com.myrecipes.data.RecipeData.recipeList;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -41,19 +41,7 @@ public class RecipeControllerTest
     @Test
     public void home_ShouldRenderIndexView() throws Exception
     {
-        List<Recipe> recipes = Arrays.asList(
-                new Recipe.RecipeBuilder("Cookies", Category.DESSERT)
-                        .withDescription("Delicious chocolate cookies")
-                        .withPrepTime(15)
-                        .withCookTime(30)
-                        .build(),
-
-                new Recipe.RecipeBuilder("Chocolate Cake", Category.DESSERT)
-                        .withDescription("Fantastic chocolate cake")
-                        .withPrepTime(20)
-                        .withCookTime(60)
-                        .build()
-        );
+        List<Recipe> recipes = recipeList();
         when(recipeService.findAll()).thenReturn(recipes);
 
         mockMvc.perform(get("/"))
@@ -98,11 +86,7 @@ public class RecipeControllerTest
     @Test
     public void detail_ShouldReturnRecipe() throws Exception
     {
-        Recipe recipe = new Recipe.RecipeBuilder("Cookies", Category.DESSERT)
-                .withDescription("Delicious chocolate cookies")
-                .withPrepTime(15)
-                .withCookTime(30)
-                .build();
+        Recipe recipe = recipe1();
         recipe.setId(1L);
         when(recipeService.findById(1L)).thenReturn(recipe);
 
@@ -125,11 +109,7 @@ public class RecipeControllerTest
     @Test
     public void edit_ShouldReturnEditForm() throws Exception
     {
-        Recipe recipe = new Recipe.RecipeBuilder("Cookies", Category.DESSERT)
-                .withDescription("Delicious chocolate cookies")
-                .withPrepTime(15)
-                .withCookTime(30)
-                .build();
+        Recipe recipe = recipe1();
         recipe.setId(1L);
 
         when(recipeService.findById(1L)).thenReturn(recipe);
@@ -143,11 +123,7 @@ public class RecipeControllerTest
     @Test
     public void edit_ShouldRedirectToDetails() throws Exception
     {
-        Recipe recipe = new Recipe.RecipeBuilder("Cookies", Category.DESSERT)
-                .withDescription("Delicious chocolate cookies")
-                .withPrepTime(15)
-                .withCookTime(30)
-                .build();
+        Recipe recipe = recipe1();
         recipe.setId(1L);
 
         when(recipeService.findById(1L)).thenReturn(recipe);
