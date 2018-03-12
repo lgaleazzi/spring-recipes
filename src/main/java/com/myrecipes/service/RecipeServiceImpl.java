@@ -45,6 +45,7 @@ public class RecipeServiceImpl implements RecipeService
     @Override
     public void save(Recipe recipe, MultipartFile file)
     {
+        System.out.println("attempting to save: " + recipe + file);
         if (!file.isEmpty())
         {
             //if a new file was uploaded, set it as image
