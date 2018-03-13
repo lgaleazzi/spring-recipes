@@ -1,19 +1,25 @@
 package com.myrecipes.model;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 public class Recipe
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @CreatedBy
+    private User createdBy;
 
     @NotBlank
     private String name;
@@ -32,20 +38,17 @@ public class Recipe
     private int cookTime;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    //Ordering prevents multiple selects of children entities
-    //@OrderColumn(name = "id")
     //JoinColumn annotation prevents additional table
     @JoinColumn(name = "recipe_id")
     private List<Ingredient> ingredients;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    //Ordering prevents multiple selects of children entities
-    //@OrderColumn(name = "id")
     @JoinColumn(name = "recipe_id")
     private List<Step> steps;
 
     public Recipe(RecipeBuilder builder)
     {
+        this.createdBy = builder.createdBy;
         this.name = builder.name;
         this.image = builder.image;
         this.description = builder.description;
@@ -88,6 +91,11 @@ public class Recipe
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    public User getCreatedBy()
+    {
+        return createdBy;
     }
 
     public String getName()
@@ -200,6 +208,7 @@ public class Recipe
         return "Recipe{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", created by='" + createdBy + '\'' +
                 ", image='" + image + '\'' +
                 ", description='" + description + '\'' +
                 ", category=" + category +
@@ -213,6 +222,7 @@ public class Recipe
     public static class RecipeBuilder
     {
         private String name;
+        private User createdBy;
         private byte[] image;
         private String description;
         private Category category;
@@ -225,6 +235,12 @@ public class Recipe
         {
             this.name = name;
             this.category = category;
+        }
+
+        public RecipeBuilder withUser(User createdBy)
+        {
+            this.createdBy = createdBy;
+            return this;
         }
 
         public RecipeBuilder withImage(byte[] image)

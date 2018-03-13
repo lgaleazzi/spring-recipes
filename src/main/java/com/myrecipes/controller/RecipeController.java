@@ -39,6 +39,7 @@ public class RecipeController
     public String recipeDetails(@PathVariable Long id, Model model)
     {
         Recipe recipe = recipeService.findById(id);
+        System.out.println(recipe);
         model.addAttribute("recipe", recipe);
 
         return "recipe/detail";
