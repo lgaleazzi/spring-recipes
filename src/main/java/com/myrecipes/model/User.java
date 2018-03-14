@@ -29,9 +29,15 @@ public class User implements UserDetails
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public User(String username)
+    {
+        this.role = Role.STANDARD;
+        this.username = username;
+    }
+
     public User()
     {
-        role = Role.STANDARD;
+        this(null);
     }
 
     public Long getId()
@@ -53,7 +59,6 @@ public class User implements UserDetails
     {
         this.username = username;
     }
-
 
     public String getPassword()
     {
@@ -106,7 +111,8 @@ public class User implements UserDetails
         authorities.add(new SimpleGrantedAuthority(role.toString()));
         return authorities;
     }
-    private enum Role
+
+    public enum Role
     {
         STANDARD, ADMIN
     }

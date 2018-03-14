@@ -1,31 +1,41 @@
 package com.myrecipes.core;
 
-import com.myrecipes.model.Ingredient;
-import com.myrecipes.model.Category;
-import com.myrecipes.model.Recipe;
+import com.myrecipes.model.*;
 import com.myrecipes.repository.RecipeRepository;
-import com.myrecipes.model.Step;
+import com.myrecipes.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class DataLoader implements ApplicationRunner
 {
     private final RecipeRepository recipeRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public DataLoader(RecipeRepository recipeRepository)
+    public DataLoader(RecipeRepository recipeRepository, UserRepository userRepository)
     {
         this.recipeRepository = recipeRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
     public void run(ApplicationArguments args) throws Exception
     {
+        User livia = new User("Livia");
+        livia.setPassword("password");
+        userRepository.save(livia);
+
+        User admin = new User("Admin");
+        admin.setPassword("password");
+        admin.setRole(User.Role.ADMIN);
+        userRepository.save(admin);
 
         List<Ingredient> ingredients = new ArrayList<>(Arrays.asList(
                 new Ingredient("Eggs", "Fresh", "3"),
