@@ -3,6 +3,7 @@ package com.myrecipes.controller;
 import com.myrecipes.model.User;
 import com.myrecipes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,6 +51,20 @@ public class UserController
             // "flash" session attribute must not exist...do nothing and proceed normally
         }
         return "user/login";
+    }
+
+    @RequestMapping("/profile")
+    public String profilePage(Model model, Authentication authentication)
+    {
+        if (authentication == null || !authentication.isAuthenticated())
+        {
+            return "redirect:/login";
+        }
+
+        User user = userService.findByUsername(authentication.getName());
+        model.addAttribute("user", user);
+
+        return "user/profile";
     }
 
     @RequestMapping(value = "/users")

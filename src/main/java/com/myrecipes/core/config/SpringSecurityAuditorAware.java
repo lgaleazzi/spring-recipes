@@ -21,10 +21,7 @@ public class SpringSecurityAuditorAware implements AuditorAware<User>
 
         if (authentication != null && authentication.isAuthenticated())
         {
-            org.springframework.security.core.userdetails.User springUser =
-                    (org.springframework.security.core.userdetails.User)authentication.getPrincipal();
-
-            currentAuditor = userService.findByUsername(springUser.getUsername());
+            currentAuditor = userService.findByUsername(authentication.getName());
         }
 
         return currentAuditor;
