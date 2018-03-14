@@ -38,7 +38,11 @@
                     <a th:href="@{|/recipes/${recipe.id}|}">
                         <div class="grid-70">
                             <p>
-                                <span th:text="${recipe.name}"><img th:src="@{/assets/images/favorite.svg}" height="12px"> </span>
+                                <img th:if="${recipe.favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorited.svg}" height="12px">
+                                <img th:if="${!recipe.favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorite.svg}" height="12px">
+                                <span th:text="${recipe.name}"> </span>
                             </p>
                         </div>
                     </a>

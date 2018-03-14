@@ -1,12 +1,11 @@
 package com.myrecipes.controller;
 
-import com.myrecipes.model.Category;
-import com.myrecipes.model.Ingredient;
-import com.myrecipes.model.Recipe;
-import com.myrecipes.model.Step;
+import com.myrecipes.model.*;
 import com.myrecipes.service.RecipeService;
+import com.myrecipes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +19,9 @@ public class RecipeController
 {
     @Autowired
     private RecipeService recipeService;
+
+    @Autowired
+    private UserService userService;
 
     @ModelAttribute("categories")
     public List<Category> allCategories()
@@ -96,10 +98,21 @@ public class RecipeController
     }
 
     @RequestMapping(value = "/recipes/{id}", method = RequestMethod.POST)
-    public String editProject(@Valid Recipe recipe, @RequestParam MultipartFile file)
+    public String editRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file)
     {
         recipeService.save(recipe, file);
 
         return String.format("redirect:/recipes/%s", recipe.getId());
+    }
+
+    @RequestMapping(value = "/recipes/{id}/favorite")
+    @PreAuthorize("isAuthenticated()")
+    public String favoriteRecipe(@PathVariable Long id, Authentication authentication)
+    {
+        User user = userService.findByUsername(authentication.getName());
+        Recipe recipe = recipeService.findById(id);
+        userService.toggleFavorite(user, recipe);
+
+        return "redirect:/recipes/" + id;
     }
 }

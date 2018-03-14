@@ -29,8 +29,16 @@ public class User implements UserDetails
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "user_favorites",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id")
+    )
+    private List<Recipe> favorites;
+
     public User(String username)
     {
+        this.favorites = new ArrayList<>();
         this.role = Role.STANDARD;
         this.username = username;
     }
@@ -78,6 +86,27 @@ public class User implements UserDetails
     public void setRole(Role role)
     {
         this.role = role;
+    }
+
+    public List<Recipe> getFavorites()
+    {
+        return favorites;
+    }
+
+    public void setFavorites(List<Recipe> favorites)
+    {
+        this.favorites = favorites;
+    }
+
+    public void toggleFavorite(Recipe recipe)
+    {
+        if (favorites.contains(recipe))
+        {
+            favorites.remove(recipe);
+        } else
+        {
+            favorites.add(recipe);
+        }
     }
 
     @Override

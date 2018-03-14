@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
@@ -20,6 +21,9 @@ public class Recipe
     @ManyToOne
     @CreatedBy
     private User createdBy;
+
+    @ManyToMany(mappedBy = "favorites")
+    private List<User> favoritedBy;
 
     @NotBlank
     private String name;
@@ -67,6 +71,7 @@ public class Recipe
 
     public Recipe()
     {
+        favoritedBy = new ArrayList<>();
         ingredients = new ArrayList<>();
         steps = new ArrayList<>();
     }
@@ -100,6 +105,28 @@ public class Recipe
     public User getCreatedBy()
     {
         return createdBy;
+    }
+
+    public List<User> getFavoritedBy()
+    {
+        return favoritedBy;
+    }
+
+    public void setFavoritedBy(List<User> favoritedBy)
+    {
+        this.favoritedBy = favoritedBy;
+    }
+
+    public List<String> getFavoritedName()
+    {
+        List<String> favoritedName = new ArrayList<>();
+        if (favoritedBy != null && !favoritedBy.isEmpty())
+        {
+            favoritedName = favoritedBy.stream()
+                    .map(User::getUsername)
+                    .collect(Collectors.toList());
+        }
+        return favoritedName;
     }
 
     public String getName()

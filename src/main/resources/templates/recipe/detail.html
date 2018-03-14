@@ -18,8 +18,12 @@
                     </div>
                     <div class="grid-50">
                         <h2 class="flush-right">
-                            <a href="#">
-                                <img th:src="@{/assets/images/favorite.svg}" height="16px">
+                            <a th:href="@{|/recipes/*{id}/favorite|}">
+                                <img th:if="*{favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorited.svg}" height="16px">
+                                <img th:if="*{!favoritedName.contains(#authentication.name)}"
+                                     th:src="@{/assets/images/favorite.svg}" height="16px">
+
                             </a>
                         </h2>
                     </div>
