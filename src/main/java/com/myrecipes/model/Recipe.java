@@ -82,6 +82,10 @@ public class Recipe
         this.cookTime = cookTime;
     }
 
+    public boolean isCreatedBy(String username)
+    {
+        return createdBy != null && createdBy.getUsername().equalsIgnoreCase(username);
+    }
 
     public Long getId()
     {

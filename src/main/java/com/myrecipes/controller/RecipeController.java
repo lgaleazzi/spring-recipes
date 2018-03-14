@@ -6,6 +6,7 @@ import com.myrecipes.model.Recipe;
 import com.myrecipes.model.Step;
 import com.myrecipes.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +40,6 @@ public class RecipeController
     public String recipeDetails(@PathVariable Long id, Model model)
     {
         Recipe recipe = recipeService.findById(id);
-        System.out.println(recipe);
         model.addAttribute("recipe", recipe);
 
         return "recipe/detail";
@@ -52,6 +52,7 @@ public class RecipeController
     }
 
     @RequestMapping("/recipes/add")
+    @PreAuthorize("isAuthenticated()")
     public String addForm(Model model)
     {
         if (!model.containsAttribute("recipe"))
@@ -67,6 +68,7 @@ public class RecipeController
     }
 
     @PostMapping(value = "/recipes")
+    @PreAuthorize("isAuthenticated()")
     public String addRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file)
     {
         recipeService.save(recipe, file);
