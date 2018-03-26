@@ -87,6 +87,7 @@ public class RecipeController
     }
 
     @RequestMapping(value = "/recipes/{id}/edit")
+    @PreAuthorize("hasPermission(#id, 'Recipe', 'edit')")
     public String editForm(@PathVariable Long id, Model model)
     {
         Recipe recipe = recipeService.findById(id);
@@ -100,6 +101,7 @@ public class RecipeController
     }
 
     @PostMapping(value = "/recipes/{id}")
+    @PreAuthorize("hasPermission(#recipe, 'edit')")
     public String editRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file)
     {
         recipeService.save(recipe, file);

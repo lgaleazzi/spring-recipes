@@ -247,7 +247,6 @@ public class Recipe
                 ", cookTime=" + cookTime +
                 ", ingredients=" + ingredients +
                 ", steps=" + steps +
-                ", created by=" + createdBy +
                 '}';
     }
 

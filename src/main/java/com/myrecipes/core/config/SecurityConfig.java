@@ -1,5 +1,6 @@
 package com.myrecipes.core.config;
 
+import com.myrecipes.core.permission.RecipePermissionEvaluator;
 import com.myrecipes.core.web.FlashMessage;
 import com.myrecipes.service.DetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +10,11 @@ import org.springframework.core.annotation.Order;
 import org.springframework.data.repository.query.spi.EvaluationContextExtension;
 import org.springframework.data.repository.query.spi.EvaluationContextExtensionSupport;
 import org.springframework.security.access.expression.SecurityExpressionRoot;
+import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
+import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -25,8 +29,10 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfig
+public class SecurityConfig extends GlobalMethodSecurityConfiguration
 {
+    @Autowired
+    private RecipePermissionEvaluator recipePermissionEvaluator;
 
     @Configuration
     @Order(1)
@@ -110,5 +116,14 @@ public class SecurityConfig
                 }
             };
         }
+    }
+
+    @Override
+    protected MethodSecurityExpressionHandler createExpressionHandler()
+    {
+        DefaultMethodSecurityExpressionHandler expressionHandler =
+                new DefaultMethodSecurityExpressionHandler();
+        expressionHandler.setPermissionEvaluator(recipePermissionEvaluator);
+        return expressionHandler;
     }
 }

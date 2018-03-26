@@ -1,5 +1,6 @@
 package com.myrecipes.controller;
 
+import com.myrecipes.exception.UserAlreadyExistsException;
 import com.myrecipes.model.User;
 import com.myrecipes.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,12 @@ public class UserController
     @PostMapping(value = "/signup")
     public String addUser(User user)
     {
+        if (userService.findByUsername(user.getUsername()) != null)
+        {
+            throw new UserAlreadyExistsException(
+                    String.format("User could not be added. A user with the name %s already exists.",
+                            user.getUsername()));
+        }
         userService.save(user);
         return "redirect:/";
     }
