@@ -58,6 +58,18 @@ public class RecipeServiceImpl implements RecipeService
     }
 
     @Override
+    public List<Recipe> findByDescription(String search)
+    {
+        return recipeRepository.findByDescriptionContainingIgnoreCase(search);
+    }
+
+    @Override
+    public List<Recipe> findByIngredient(String search)
+    {
+        return recipeRepository.findByIngredientsItemIgnoreCase(search);
+    }
+
+    @Override
     public Recipe findById(Long id) throws RecipeNotFoundException
     {
         Recipe recipe = recipeRepository.findOne(id);

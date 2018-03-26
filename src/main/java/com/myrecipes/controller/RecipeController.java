@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -123,6 +124,27 @@ public class RecipeController
         List<Recipe> recipes = recipeService.findByCategory(category);
         model.addAttribute("recipes", recipes);
         model.addAttribute("selectedCategory", Category.valueOf(category));
+
+        return "recipe/index";
+    }
+
+    @RequestMapping("/recipes/search")
+    public String search(
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "ingredient", required = false) String ingredient,
+            Model model)
+    {
+        List recipes = new ArrayList();
+        if (description != null && !description.isEmpty())
+        {
+            recipes = recipeService.findByDescription(description);
+        } else if (ingredient != null && !ingredient.isEmpty())
+        {
+            recipes = recipeService.findByIngredient(ingredient);
+        }
+
+        model.addAttribute("recipes", recipes);
+        model.addAttribute("selectedCategory", Category.ALL);
 
         return "recipe/index";
     }

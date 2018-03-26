@@ -14,5 +14,9 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long>
 
     List<Recipe> findByCategory(Category category);
 
+    List<Recipe> findByDescriptionContainingIgnoreCase(String search);
+
+    List<Recipe> findByIngredientsItemIgnoreCase(String search);
+
     Recipe findOne(Long id);
 }
