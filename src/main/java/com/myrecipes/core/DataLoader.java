@@ -37,15 +37,25 @@ public class DataLoader implements ApplicationRunner
         admin.setRole(User.Role.ADMIN);
         userRepository.save(admin);
 
-        List<Ingredient> ingredients = new ArrayList<>(Arrays.asList(
+        List<Ingredient> ingredients1 = new ArrayList<>(Arrays.asList(
                 new Ingredient("Eggs", "Fresh", "3"),
                 new Ingredient("Milk", "Fresh", "0.5L")
         ));
 
-        List<Step> steps = new ArrayList<>(Arrays.asList(
+        List<Ingredient> ingredients2 = new ArrayList<>(Arrays.asList(
+                new Ingredient("Eggs", "Fresh", "2"),
+                new Ingredient("Chocolate", "Dark", "200g")
+        ));
+
+        List<Step> steps1 = new ArrayList<>(Arrays.asList(
                 new Step("First do this"),
                 new Step("And then do that"),
                 new Step("Finally do this")
+        ));
+
+        List<Step> steps2 = new ArrayList<>(Arrays.asList(
+                new Step("Mix"),
+                new Step("Bake")
         ));
 
         List<Recipe> recipes = Arrays.asList(
@@ -53,16 +63,19 @@ public class DataLoader implements ApplicationRunner
                         .withDescription("Delicious chocolate cookies")
                         .withPrepTime(15)
                         .withCookTime(30)
-                        .withIngredients(ingredients)
-                        .withSteps(steps)
+                        .withIngredients(ingredients1)
+                        .withSteps(steps1)
                         .build(),
 
                 new Recipe.RecipeBuilder("Chocolate Cake", Category.DESSERT)
                         .withDescription("Fantastic chocolate cake")
                         .withPrepTime(20)
                         .withCookTime(60)
+                        .withIngredients(ingredients2)
+                        .withSteps(steps2)
                         .build()
         );
+
 
         livia.toggleFavorite(recipes.get(0));
 
