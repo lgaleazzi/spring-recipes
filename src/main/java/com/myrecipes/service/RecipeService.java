@@ -12,6 +12,9 @@ public interface RecipeService
     List<Recipe> findAll();
     List<Category> allCategories();
 
+    List<Recipe> findByCategory(Category category);
+    List<Recipe> findByCategory(String category);
+
     Recipe findById(Long id) throws RecipeNotFoundException;
     void save(Recipe recipe, MultipartFile file);
 

@@ -115,4 +115,13 @@ public class RecipeController
 
         return "redirect:/recipes/" + id;
     }
+
+    @RequestMapping("/recipes/category/{category}")
+    public String recipesByCategory(@PathVariable String category, Model model)
+    {
+        List<Recipe> recipes = recipeService.findByCategory(category);
+        model.addAttribute("recipes", recipes);
+
+        return "recipe/index";
+    }
 }

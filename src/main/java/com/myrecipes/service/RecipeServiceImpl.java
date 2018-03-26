@@ -1,5 +1,6 @@
 package com.myrecipes.service;
 
+import com.myrecipes.exception.CategoryNotFoundException;
 import com.myrecipes.exception.FileUploadException;
 import com.myrecipes.exception.RecipeNotFoundException;
 import com.myrecipes.model.Category;
@@ -29,6 +30,31 @@ public class RecipeServiceImpl implements RecipeService
     public List<Category> allCategories()
     {
         return Arrays.asList(Category.values());
+    }
+
+    @Override
+    public List<Recipe> findByCategory(Category category)
+    {
+        return recipeRepository.findByCategory(category);
+    }
+
+    @Override
+    public List<Recipe> findByCategory(String category)
+    {
+        try
+        {
+            Category searchedCategory = Category.valueOf(category.toUpperCase());
+            if (searchedCategory == Category.ALL)
+            {
+                return findAll();
+            } else
+            {
+                return findByCategory(searchedCategory);
+            }
+        } catch (IllegalArgumentException e)
+        {
+            throw new CategoryNotFoundException(String.format("Category %s was not found", category));
+        }
     }
 
     @Override
