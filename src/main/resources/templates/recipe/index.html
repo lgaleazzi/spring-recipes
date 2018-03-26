@@ -13,7 +13,7 @@
             <div class="recipes">
 
                 <div class="grid-100 row controls">
-                    <div class="grid-30">
+                    <div class="grid-20">
                         <p>
                             <select id="category">
                                 <option th:each="category : ${categories}" th:value="${category}"
@@ -23,9 +23,17 @@
                             </select>
                         </p>
                     </div>
-                    <div class="grid-40">
+                    <div class="grid-30">
                         <p>
-                            <input placeholder="Search" />
+                            <input id="search" placeholder="Search"/>
+                        </p>
+                    </div>
+                    <div class="grid-20">
+                        <p>
+                            <select id="search-mode">
+                                <option value="description">by description</option>
+                                <option value="ingredient">by ingredient</option>
+                            </select>
                         </p>
                     </div>
                     <div class="grid-30">
