@@ -58,8 +58,8 @@
                         <p><label> Created by </label></p>
                     </div>
                     <div class="grid-40">
-                        <p th:text="*{createdBy?.username}">
-                            Livia
+                        <p>
+                            <a th:href="@{|/profile/*{createdBy?.username}|}" th:text="*{createdBy?.username}">Livia</a>
                         </p>
                     </div>
                 </div>

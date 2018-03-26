@@ -32,6 +32,10 @@ public class DataLoader implements ApplicationRunner
         livia.setPassword("password");
         userRepository.save(livia);
 
+        User frank = new User("Frank");
+        livia.setPassword("password");
+        userRepository.save(frank);
+
         User admin = new User("Admin");
         admin.setPassword("password");
         admin.setRole(User.Role.ADMIN);
@@ -81,7 +85,6 @@ public class DataLoader implements ApplicationRunner
 
         recipes.forEach(recipeRepository::save);
         userRepository.save(livia);
-
 
     }
 }

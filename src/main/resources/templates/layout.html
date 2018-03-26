@@ -14,7 +14,7 @@
 
 <nav th:fragment="nav">
     <a sec:authorize="isAnonymous()" th:href="@{/signup}">sign-up</a>
-    <a sec:authorize="isAuthenticated()" sec:authentication="name" th:href="@{/profile}"></a>
+    <a sec:authorize="isAuthenticated()" sec:authentication="name" th:href="@{/myprofile}"></a>
     &bull;
     <a sec:authorize="isAnonymous()" th:href="@{/login}">login</a>
     <form class="logout" sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">

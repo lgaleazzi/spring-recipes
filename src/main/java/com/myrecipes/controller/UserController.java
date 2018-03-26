@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -53,8 +54,8 @@ public class UserController
         return "user/login";
     }
 
-    @RequestMapping("/profile")
-    public String profilePage(Model model, Authentication authentication)
+    @RequestMapping("/myprofile")
+    public String myProfile(Model model, Authentication authentication)
     {
         if (authentication == null || !authentication.isAuthenticated())
         {
@@ -62,6 +63,15 @@ public class UserController
         }
 
         User user = userService.findByUsername(authentication.getName());
+        model.addAttribute("user", user);
+
+        return "user/profile";
+    }
+
+    @RequestMapping("/profile/{username}")
+    public String profilePage(@PathVariable("username") String username, Model model)
+    {
+        User user = userService.findByUsername(username);
         model.addAttribute("user", user);
 
         return "user/profile";

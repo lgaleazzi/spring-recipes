@@ -11,7 +11,7 @@ import java.util.List;
 @RestResource(exported = false)
 public interface UserRepository extends CrudRepository<User, Long>
 {
-    User findByUsername(String username);
+    User findByUsernameIgnoreCase(String username);
 
     List<User> findAll();
 }

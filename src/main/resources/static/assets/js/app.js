@@ -1,3 +1,4 @@
+//Add step row
 $('#add-step').click(function() {
     var index = $('.step-row').length;
 
@@ -12,6 +13,7 @@ $('#add-step').click(function() {
     $("#add-step-row" ).before(newRow);
 });
 
+//Add ingredient row
 $('#add-ingredient').click(function() {
     var index = $('.ingredient-row').length;
 
@@ -30,17 +32,18 @@ $('#add-ingredient').click(function() {
     $("#add-ingredient-row" ).before(newRow);
 });
 
-$('#category').change(function() {
+//Filter by category
+$('#select-category').change(function() {
     var category = $('#category').val();
     window.location.href = '/recipes/category/' + category;
 });
 
+//search on Enter
 $('#search').on('keypress', function (e) {
     if(e.which === 13){
     $(this).attr("disabled", "disabled");
     var search = $('#search').val();
     var searchMode = $('#search-mode').val();
     window.location.href = '/recipes/search?' + searchMode + '=' + search;
-    //$(this).removeAttr("disabled");
     }
 });

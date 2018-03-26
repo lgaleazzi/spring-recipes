@@ -15,7 +15,7 @@
                 <div class="grid-100 row controls">
                     <div class="grid-20">
                         <p>
-                            <select id="category">
+                            <select id="select-category">
                                 <option th:each="category : ${categories}" th:value="${category}"
                                         th:text="${category.name}" th:selected="${category} == ${selectedCategory}">
                                     Breakfast
