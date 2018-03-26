@@ -34,6 +34,7 @@ public class RecipeController
     {
         List<Recipe> recipes = recipeService.findAll();
         model.addAttribute("recipes", recipes);
+        model.addAttribute("selectedCategory", Category.ALL);
 
         return "recipe/index";
     }
@@ -121,6 +122,7 @@ public class RecipeController
     {
         List<Recipe> recipes = recipeService.findByCategory(category);
         model.addAttribute("recipes", recipes);
+        model.addAttribute("selectedCategory", Category.valueOf(category));
 
         return "recipe/index";
     }

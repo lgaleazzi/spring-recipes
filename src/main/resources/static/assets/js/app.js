@@ -31,3 +31,8 @@ $('#add-ingredient').click(function() {
 
     $("#add-ingredient-row" ).before(newRow);
 });
+
+$('#category').change(function() {
+    var category = $('#category').val();
+    window.location.href = '/recipes/category/' + category;
+});
