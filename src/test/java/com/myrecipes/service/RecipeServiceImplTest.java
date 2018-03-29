@@ -1,7 +1,9 @@
 package com.myrecipes.service;
 
+import com.myrecipes.exception.CategoryNotFoundException;
 import com.myrecipes.exception.FileUploadException;
 import com.myrecipes.exception.RecipeNotFoundException;
+import com.myrecipes.model.Category;
 import com.myrecipes.model.Recipe;
 import com.myrecipes.repository.RecipeRepository;
 import org.junit.Before;
@@ -13,10 +15,11 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.mock.web.MockMultipartFile;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
-import static com.myrecipes.data.RecipeData.recipe1;
-import static com.myrecipes.data.RecipeData.recipeList;
+import static com.myrecipes.data.TestData.recipe1;
+import static com.myrecipes.data.TestData.recipeList;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -46,6 +49,53 @@ public class RecipeServiceImplTest
 
         assertThat(recipes.size(), is(equalTo(2)));
         verify(recipeRepository).findAll();
+    }
+
+    @Test
+    public void findByCategoryString_ReturnsOneRecipe() throws Exception
+    {
+        when(recipeRepository.findByCategory(Category.DESSERT)).thenReturn(Arrays.asList(recipe1()));
+
+        List<Recipe> recipes = service.findByCategory("dessert");
+
+        assertThat(recipes.size(), is(equalTo(1)));
+        verify(recipeRepository).findByCategory(Category.DESSERT);
+    }
+
+    @Test
+    public void allCategories_Returns5Categories() throws Exception
+    {
+        List<Category> categories = service.allCategories();
+
+        assertThat(categories.size(), is(equalTo(5)));
+    }
+
+    @Test(expected = CategoryNotFoundException.class)
+    public void findByCategory_ThrowsExceptionIfCategoryNotExists() throws Exception
+    {
+        service.findByCategory("cupcakes");
+    }
+
+    @Test
+    public void findByDescription_ReturnsOneRecipe() throws Exception
+    {
+        when(recipeRepository.findByDescriptionContainingIgnoreCase("cookies")).thenReturn(Arrays.asList(recipe1()));
+
+        List<Recipe> recipes = service.findByDescription("cookies");
+
+        assertThat(recipes.size(), is(equalTo(1)));
+        verify(recipeRepository).findByDescriptionContainingIgnoreCase("cookies");
+    }
+
+    @Test
+    public void findByIngredient_ReturnsOneRecipe() throws Exception
+    {
+        when(recipeRepository.findByIngredientsItemIgnoreCase("milk")).thenReturn(Arrays.asList(recipe1()));
+
+        List<Recipe> recipes = service.findByIngredient("milk");
+
+        assertThat(recipes.size(), is(equalTo(1)));
+        verify(recipeRepository).findByIngredientsItemIgnoreCase("milk");
     }
 
     @Test
