@@ -109,6 +109,7 @@ public class RecipeServiceImpl implements RecipeService
     @Override
     public void delete(Long id) throws RecipeNotFoundException
     {
+        //TODO: remove from favorites before deletion
         if (recipeRepository.findOne(id) == null)
         {
             throw new RecipeNotFoundException(String.format("No recipe with id %s was found", id));

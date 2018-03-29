@@ -74,7 +74,6 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration
 
         @Override
         protected void configure(HttpSecurity http) throws Exception {
-            //TODO: configure security
             http
                     .authorizeRequests()
                     .anyRequest()

@@ -1,5 +1,6 @@
 package com.myrecipes.controller;
 
+import com.myrecipes.core.web.FlashMessage;
 import com.myrecipes.model.*;
 import com.myrecipes.service.RecipeService;
 import com.myrecipes.service.UserService;
@@ -8,8 +9,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
@@ -73,21 +76,38 @@ public class RecipeController
 
     @PostMapping(value = "/recipes")
     @PreAuthorize("isAuthenticated()")
-    public String addRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file)
+    public String addRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes)
     {
+        if (result.hasErrors())
+        {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.recipe", result);
+            redirectAttributes.addFlashAttribute("recipe", recipe);
+            redirectAttributes.addFlashAttribute("flash",
+                    new FlashMessage("Invalid data", FlashMessage.Status.FAILURE));
+
+            return "redirect:/recipes/add";
+        }
+
         recipeService.save(recipe, file);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("New recipe added",
+                FlashMessage.Status.SUCCESS));
+
         return "redirect:/";
     }
 
     @RequestMapping(value = "/recipes/{id}/delete")
-    public String deleteRecipe(@PathVariable Long id)
+    @PreAuthorize("isAuthenticated() and hasPermission(#id, 'Recipe', 'edit')")
+    public String deleteRecipe(@PathVariable Long id, RedirectAttributes redirectAttributes)
     {
         recipeService.delete(id);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Recipe deleted",
+                FlashMessage.Status.SUCCESS));
+
         return "redirect:/";
     }
 
     @RequestMapping(value = "/recipes/{id}/edit")
-    @PreAuthorize("hasPermission(#id, 'Recipe', 'edit')")
+    @PreAuthorize("isAuthenticated() and hasPermission(#id, 'Recipe', 'edit')")
     public String editForm(@PathVariable Long id, Model model)
     {
         Recipe recipe = recipeService.findById(id);
@@ -101,10 +121,22 @@ public class RecipeController
     }
 
     @PostMapping(value = "/recipes/{id}")
-    @PreAuthorize("hasPermission(#recipe, 'edit')")
-    public String editRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file)
+    @PreAuthorize("isAuthenticated() and hasPermission(#recipe, 'edit')")
+    public String editRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes)
     {
+        if (result.hasErrors())
+        {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.recipe", result);
+            redirectAttributes.addFlashAttribute("recipe", recipe);
+            redirectAttributes.addFlashAttribute("flash",
+                    new FlashMessage("Invalid data", FlashMessage.Status.FAILURE));
+
+            return String.format("redirect:/recipes/%s/edit", recipe.getId());
+        }
+
         recipeService.save(recipe, file);
+        redirectAttributes.addFlashAttribute("flash", new FlashMessage("Recipe saved",
+                FlashMessage.Status.SUCCESS));
 
         return String.format("redirect:/recipes/%s", recipe.getId());
     }
@@ -125,7 +157,7 @@ public class RecipeController
     {
         List<Recipe> recipes = recipeService.findByCategory(category);
         model.addAttribute("recipes", recipes);
-        model.addAttribute("selectedCategory", Category.valueOf(category));
+        model.addAttribute("selectedCategory", Category.valueOf(category.toUpperCase()));
 
         return "recipe/index";
     }
