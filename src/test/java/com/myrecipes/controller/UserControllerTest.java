@@ -64,8 +64,10 @@ public class UserControllerTest
     @Test
     public void signup_ShouldRedirectToIndex() throws Exception
     {
+        when(userService.usernameExists("Frank")).thenReturn(false);
+
         mockMvc.perform(post("/signup")
-                .param("name", "Frank")
+                .param("username", "Frank")
                 .param("password", "password")
         )
                 .andExpect(flash().attribute("flash", hasProperty("status", is(FlashMessage.Status.SUCCESS))))
@@ -78,7 +80,7 @@ public class UserControllerTest
     @Test
     public void signup_ShouldThrowErrorIfUserExists() throws Exception
     {
-        when(userService.findByUsername("Frank")).thenReturn(user1());
+        when(userService.usernameExists("Frank")).thenReturn(true);
 
         mockMvc.perform(post("/signup")
                 .param("username", "Frank")

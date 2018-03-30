@@ -9,6 +9,8 @@ public interface UserService
 
     User findByUsername(String username);
 
+    Boolean usernameExists(String username);
+
     void save(User user);
 
     void toggleFavorite(User user, Recipe recipe);

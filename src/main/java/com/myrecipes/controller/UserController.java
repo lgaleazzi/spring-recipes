@@ -44,9 +44,10 @@ public class UserController
             redirectAttributes.addFlashAttribute("user", user);
             redirectAttributes.addFlashAttribute("flash",
                     new FlashMessage("Invalid data", FlashMessage.Status.FAILURE));
+            return "redirect:/signup";
         }
 
-        if (userService.findByUsername(user.getUsername()) != null)
+        if (userService.usernameExists(user.getUsername()))
         {
             throw new UserAlreadyExistsException(
                     String.format("User could not be added. A user with the name %s already exists.",

@@ -39,6 +39,12 @@ public class UserServiceImpl implements UserService
     }
 
     @Override
+    public Boolean usernameExists(String username)
+    {
+        return userRepository.findByUsernameIgnoreCase(username) != null;
+    }
+
+    @Override
     public void save(User user)
     {
         userRepository.save(user);
