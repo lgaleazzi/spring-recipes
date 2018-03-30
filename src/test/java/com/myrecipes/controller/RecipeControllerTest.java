@@ -103,6 +103,19 @@ public class RecipeControllerTest
     }
 
     @Test
+    public void add_ShouldFailForInvalidData() throws Exception
+    {
+        mockMvc.perform(
+                fileUpload("/recipes")
+                        .file(new MockMultipartFile("file", "test".getBytes()))
+                        .param("name", "")
+        )
+                .andExpect(flash().attribute("flash", hasProperty("status", is(FlashMessage.Status.FAILURE))))
+                .andExpect(redirectedUrl("/recipes/add"))
+                .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
     public void detail_ShouldReturnRecipe() throws Exception
     {
         Recipe recipe = recipe1();
@@ -183,7 +196,6 @@ public class RecipeControllerTest
     }
 
     @Test
-
     public void edit_ShouldFailForInvalidData() throws Exception
     {
         Recipe recipe = recipe1();
@@ -196,21 +208,10 @@ public class RecipeControllerTest
                         .file(new MockMultipartFile("file", "test".getBytes()))
                         .param("id", "1")
                         .param("name", "")
-                        .param("description", "Delicious chocolate cookies")
-                        .param("category", "DESSERT")
-                        .param("prepTime", "20")
-                        .param("cookTime", "40")
-                        .param("ingredients[0].id", "1")
-                        .param("ingredients[0].item", "Milk")
-                        .param("ingredients[0].condition", "Fresh")
-                        .param("ingredients[0].quantity", "1L")
-                        .param("steps[0].id", "1")
-                        .param("steps[0].stepName", "step 1")
         )
-                .andExpect(redirectedUrl("/recipes/edit/1"))
+                .andExpect(redirectedUrl("/recipes/1/edit"))
                 .andExpect(flash().attribute("flash", hasProperty("status", is(FlashMessage.Status.FAILURE))))
                 .andExpect(status().is3xxRedirection());
-        verify(recipeService).save(any(Recipe.class), any(MultipartFile.class));
     }
 
     @Test

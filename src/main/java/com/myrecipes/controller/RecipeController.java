@@ -74,7 +74,7 @@ public class RecipeController
         return "recipe/form";
     }
 
-    @RequestMapping(value = "/recipes", method = RequestMethod.POST)
+    @PostMapping(value = "/recipes")
     @PreAuthorize("isAuthenticated()")
     public String addRecipe(@Valid Recipe recipe, BindingResult result, @RequestParam MultipartFile file,
                             RedirectAttributes redirectAttributes)
@@ -123,7 +123,7 @@ public class RecipeController
 
     @PostMapping(value = "/recipes/{id}")
     @PreAuthorize("isAuthenticated() and hasPermission(#recipe, 'edit')")
-    public String editRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes)
+    public String editRecipe(@Valid Recipe recipe, BindingResult result, @RequestParam MultipartFile file, RedirectAttributes redirectAttributes)
     {
         if (result.hasErrors())
         {
