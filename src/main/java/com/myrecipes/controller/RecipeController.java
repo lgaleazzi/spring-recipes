@@ -74,9 +74,10 @@ public class RecipeController
         return "recipe/form";
     }
 
-    @PostMapping(value = "/recipes")
+    @RequestMapping(value = "/recipes", method = RequestMethod.POST)
     @PreAuthorize("isAuthenticated()")
-    public String addRecipe(@Valid Recipe recipe, @RequestParam MultipartFile file, BindingResult result, RedirectAttributes redirectAttributes)
+    public String addRecipe(@Valid Recipe recipe, BindingResult result, @RequestParam MultipartFile file,
+                            RedirectAttributes redirectAttributes)
     {
         if (result.hasErrors())
         {

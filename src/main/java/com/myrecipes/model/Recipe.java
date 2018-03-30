@@ -6,6 +6,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +32,7 @@ public class Recipe
     @Lob
     private byte[] image;
 
+    @Size(max = 500)
     private String description;
 
     @NotNull

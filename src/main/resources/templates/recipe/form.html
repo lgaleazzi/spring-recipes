@@ -58,8 +58,10 @@
                         </div>
                         <div class="grid-40">
                             <p>
-                                <input type="text" th:field="*{name}" />
+                                <input type="text" th:field="*{name}"
+                                       th:classappend="${#fields.hasErrors('name')} ? 'error' : '' "/>
                             </p>
+                            <p class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
                         </div>
                     </div> <div class="clear"></div> <!-- name -->
 
@@ -71,8 +73,11 @@
                         </div>
                         <div class="grid-40">
                             <p>
-                                <textarea th:field="*{description}"> </textarea>
+                                <textarea th:field="*{description}"
+                                          th:classappend="${#fields.hasErrors('description')} ? 'error' : '' "> </textarea>
                             </p>
+                            <p class="error-message" th:if="${#fields.hasErrors('description')}"
+                               th:errors="*{description}"></p>
                         </div>
                     </div> <div class="clear"></div> <!-- description -->
 
@@ -84,10 +89,13 @@
                         </div>
                         <div class="grid-30">
                             <p>
-                                <select th:field="*{category}" >
+                                <select th:field="*{category}"
+                                        th:classappend="${#fields.hasErrors('category')} ? 'error' : '' ">
                                     <option th:each="category : ${categories}" th:value="${category}" th:text="${category.name}"></option>
                                 </select>
                             </p>
+                            <p class="error-message" th:if="${#fields.hasErrors('category')}"
+                               th:errors="*{category}"></p>
                         </div>
                     </div> <div class="clear"></div> <!-- category -->
 
@@ -99,8 +107,11 @@
                         </div>
                         <div class="grid-20">
                             <p>
-                                <input type="number" th:field="*{prepTime}" />
+                                <input type="number" th:field="*{prepTime}"
+                                       th:classappend="${#fields.hasErrors('prepTime')} ? 'error' : '' "/>
                             </p>
+                            <p class="error-message" th:if="${#fields.hasErrors('prepTime')}"
+                               th:errors="*{prepTime}"></p>
                         </div>
                     </div> <div class="clear"></div> <!-- prep time -->
 
@@ -112,8 +123,11 @@
                         </div>
                         <div class="grid-20">
                             <p>
-                                <input type="number" th:field="*{cookTime}" />
+                                <input type="number" th:field="*{cookTime}"
+                                       th:classappend="${#fields.hasErrors('cookTime')} ? 'error' : '' "/>
                             </p>
+                            <p class="error-message" th:if="${#fields.hasErrors('cookTime')}"
+                               th:errors="*{cookTime}"></p>
                         </div>
                     </div> <div class="clear"></div> <!-- cook time -->
 

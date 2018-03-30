@@ -139,5 +139,13 @@ button {
     display: inline-block;
 }
 
+.error {
+    border-color: red;
+}
+
+.error-message {
+    color: red;
+}
+
 
 /*# sourceMappingURL=styles.css.map */
