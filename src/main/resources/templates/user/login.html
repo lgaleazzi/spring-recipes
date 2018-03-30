@@ -16,19 +16,15 @@
                 <form th:object="${user}" th:action="@{/login}" method="post" enctype="form-data">
                     <div class="prefix-20 grid-60 suffix-20">
                         <p>
-                            <input type="text" th:field="*{username}" placeholder="Username"
-                                   th:classappend="${#fields.hasErrors('username')} ? 'error' : '' "/>
+                            <input type="text" th:field="*{username}" placeholder="Username"/>
                         </p>
                     </div>
-                    <div class="error-message" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>
                     <div class="clear"></div>
                     <div class="prefix-20 grid-60 suffix-20">
                         <p>
-                            <input type="password" th:field="*{password}" placeholder="Password"
-                                   th:classappend="${#fields.hasErrors('password')} ? 'error' : '' "/>
+                            <input type="password" th:field="*{password}" placeholder="Password"/>
                         </p>
                     </div>
-                    <div class="error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
                     <div class="clear"></div>
 
                     <div class="prefix-20 grid-60 suffix-20">
@@ -37,7 +33,7 @@
                         </p>
                     </div>
                     <div class="clear"></div>
-
+                </form>
             </div> <!-- recipes -->
         </div> <!-- grid-100 -->
     </div> <!-- grid-container -->
