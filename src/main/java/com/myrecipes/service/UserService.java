@@ -16,4 +16,6 @@ public interface UserService
     void toggleFavorite(User user, Recipe recipe);
 
     boolean isFavorite(User user, Recipe recipe);
+
+    void removeFavoriteFromAll(Recipe recipe);
 }

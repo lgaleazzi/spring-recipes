@@ -20,6 +20,9 @@ public class RecipeServiceImpl implements RecipeService
     @Autowired
     private RecipeRepository recipeRepository;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<Recipe> findAll()
     {
@@ -109,11 +112,8 @@ public class RecipeServiceImpl implements RecipeService
     @Override
     public void delete(Long id) throws RecipeNotFoundException
     {
-        //TODO: remove from favorites before deletion
-        if (recipeRepository.findOne(id) == null)
-        {
-            throw new RecipeNotFoundException(String.format("No recipe with id %s was found", id));
-        }
+        Recipe recipe = findById(id);
+        userService.removeFavoriteFromAll(recipe);
         recipeRepository.delete(id);
     }
 }

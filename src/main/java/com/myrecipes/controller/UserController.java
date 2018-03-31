@@ -73,12 +73,11 @@ public class UserController
             request.getSession().removeAttribute("flash");
         } catch (Exception ex)
         {
-            // "flash" session attribute must not exist...do nothing and proceed normally
+            // "flash" session attribute must not exist. Do nothing and proceed normally
         }
         return "user/login";
     }
 
-    //TODO: remove this
     @RequestMapping("/myprofile")
     public String myProfile(Model model, Authentication authentication)
     {
