@@ -1,9 +1,11 @@
 package com.myrecipes.model;
 
-import com.myrecipes.model.Recipe;
 import org.hibernate.validator.constraints.NotBlank;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 public class Ingredient
@@ -15,7 +17,6 @@ public class Ingredient
     @NotBlank
     private String item;
 
-    @NotBlank
     private String condition;
 
     @NotBlank

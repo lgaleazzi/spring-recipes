@@ -5,6 +5,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -46,10 +47,12 @@ public class Recipe
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     //JoinColumn annotation prevents additional table
     @JoinColumn(name = "recipe_id")
+    @Valid
     private List<Ingredient> ingredients;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "recipe_id")
+    @Valid
     private List<Step> steps;
 
     public Recipe(RecipeBuilder builder)
