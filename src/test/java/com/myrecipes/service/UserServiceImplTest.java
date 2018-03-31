@@ -10,6 +10,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static com.myrecipes.data.TestData.recipe1;
 import static com.myrecipes.data.TestData.user1;
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -76,6 +79,16 @@ public class UserServiceImplTest
     }
 
     @Test
+    public void usernameExists_ReturnsTrueIfUsernameExists() throws Exception
+    {
+        when(userRepository.findByUsernameIgnoreCase("frank")).thenReturn(user1());
+
+        Boolean usernameExists = service.usernameExists("frank");
+
+        assertThat(usernameExists, is(true));
+    }
+
+    @Test
     public void toggleFavorite_UpdatesFavorite() throws Exception
     {
         User user = user1();
@@ -99,5 +112,21 @@ public class UserServiceImplTest
         assertThat(isFavorite, is(true));
     }
 
+    @Test
+    public void removeFavorites_RemovesRecipeFromUserFavorites() throws Exception
+    {
+        User user = user1();
+        Recipe recipe = recipe1();
+        recipe.setId(1L);
+        user.getFavorites().add(recipe);
+
+        List<User> users = Arrays.asList(user);
+        when(userRepository.findByFavoritesId(1L)).thenReturn(users);
+
+        service.removeFavoriteFromAll(recipe);
+
+        assertThat(users.get(0).getFavorites().isEmpty(), is(true));
+        verify(userRepository).save(user);
+    }
 
 }

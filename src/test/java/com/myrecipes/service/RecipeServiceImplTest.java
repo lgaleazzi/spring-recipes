@@ -33,6 +33,9 @@ public class RecipeServiceImplTest
     @Mock
     private RecipeRepository recipeRepository;
 
+    @Mock
+    private UserService userService;
+
     @Before
     public void setUp() throws Exception
     {
@@ -148,6 +151,7 @@ public class RecipeServiceImplTest
 
         service.delete(1L);
 
+        verify(userService).removeFavoriteFromAll(recipe1());
         verify(recipeRepository).delete(1L);
     }
 

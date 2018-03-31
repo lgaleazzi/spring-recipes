@@ -1,6 +1,6 @@
 body {
   max-width: 800px;
-  background: #B0E0E6;
+  background: #a5e5d4;
   color: #808080;
   font-family: 'Varela Round', Helvetica, Arial, sans-serif;
   text-align: center;
@@ -139,8 +139,12 @@ button {
     display: inline-block;
 }
 
-.error {
+.error, .error:focus {
     border-color: red;
+}
+
+button:disabled {
+    background-color: DarkGrey;
 }
 
 .flash {

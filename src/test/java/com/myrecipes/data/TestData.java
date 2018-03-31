@@ -77,4 +77,19 @@ public class TestData
         user.setPassword("password");
         return user;
     }
+
+    public static User user2()
+    {
+        User user = new User("Livia");
+        user.setPassword("password");
+        return user;
+    }
+
+    public static User admin()
+    {
+        User user = new User("Admin");
+        user.setPassword("password");
+        user.setRole(User.Role.ADMIN);
+        return user;
+    }
 }

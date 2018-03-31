@@ -1,3 +1,21 @@
+//confirm password
+$('#sign-up').click(function() {
+    var pass1 = $('#password').val();
+    var pass2 = $('#confirm-password').val();
+    var message = '<p id="message" class="error-message">The password and password confirmation are not identical</p>'
+
+    if (pass2 != pass1) {
+        $('#confirm-password')
+            .addClass('error')
+            .after(message);
+            return false;
+    } else {
+        $('#confirm-password').removeClass('error');
+        $('message').remove();
+    }
+}
+)
+
 //Add step row
 $('#add-step').click(function() {
     var index = $('.step-row').length;
@@ -34,7 +52,7 @@ $('#add-ingredient').click(function() {
 
 //Filter by category
 $('#select-category').change(function() {
-    var category = $('#category').val();
+    var category = $('#select-category').val();
     window.location.href = '/recipes/category/' + category;
 });
 
