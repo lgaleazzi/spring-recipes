@@ -60,6 +60,6 @@ public class RecipePermissionEvaluator implements PermissionEvaluator
         Long id = (Long)targetId;
         Recipe recipe = recipeService.findById(id);
 
-        return recipe.getCreatedBy().equals(user);
+        return recipe.getCreatedBy() != null && recipe.getCreatedBy().equals(user);
     }
 }
