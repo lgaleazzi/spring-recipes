@@ -112,6 +112,11 @@ public class Recipe
         return createdBy;
     }
 
+    public void setCreatedBy(User user)
+    {
+        this.createdBy = user;
+    }
+
     public List<User> getFavoritedBy()
     {
         return favoritedBy;
