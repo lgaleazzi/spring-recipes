@@ -80,11 +80,9 @@ public class DataLoader implements ApplicationRunner
                         .build()
         );
 
-
         livia.toggleFavorite(recipes.get(0));
 
         recipes.forEach(recipeRepository::save);
         userRepository.save(livia);
-
     }
 }

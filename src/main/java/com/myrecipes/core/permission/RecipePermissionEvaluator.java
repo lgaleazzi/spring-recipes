@@ -38,7 +38,7 @@ public class RecipePermissionEvaluator implements PermissionEvaluator
 
         Recipe recipe = (Recipe)targetDomainObject;
 
-        return recipe.getCreatedBy().equals(user);
+        return recipe.getCreatedBy() != null && recipe.getCreatedBy().equals(user);
     }
 
     @Override
