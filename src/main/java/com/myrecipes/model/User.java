@@ -111,30 +111,35 @@ public class User implements UserDetails
         }
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isEnabled()
     {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities()
     {

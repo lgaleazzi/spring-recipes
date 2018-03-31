@@ -38,7 +38,6 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration
     @Order(1)
     public static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         protected void configure(HttpSecurity http) throws Exception {
-            // TODO: enable security and csrf
             http
                     .antMatcher("/api/**")
                     .authorizeRequests()
@@ -46,7 +45,7 @@ public class SecurityConfig extends GlobalMethodSecurityConfiguration
                     .and()
                     .httpBasic()
                     .and()
-                    .csrf().disable();
+                    .csrf();
         }
     }
 
